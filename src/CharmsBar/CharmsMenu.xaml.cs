@@ -36,9 +36,11 @@ namespace CharmsBarPort
     public partial class CharmsMenu : Window
     {
         Window CharmsClock = new CharmsClock();
+        BrushConverter converter = new();
+        
         public Microsoft.Win32.RegistryKey localKey = RegistryKey.OpenBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, RegistryView.Registry64);
         public bool charmsMenuOpen = false;
-        BrushConverter converter = new();
+        
         public CharmsMenu()
         {
             var dispWidth = SystemParameters.PrimaryScreenWidth;
@@ -75,28 +77,20 @@ namespace CharmsBarPort
             {
                 var dispWidth = SystemParameters.PrimaryScreenWidth;
                 var dispHeight = SystemParameters.PrimaryScreenHeight;
+
                 try
                 {
                     RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ImmersiveShell\\EdgeUi", false);
                     if (key != null)
                     {
-                        // get value 
+                        // (Not in 8.1) Remove the clock
                         string charmMenuUse = key.GetValue("EnableCharmsMenu", -1, RegistryValueOptions.None).ToString(); //this is not in Windows 8.1, but used to remove the Charms Clock
-
-                        if (charmMenuUse == "-1")
-                        {
-                            useMenu.Content = "0";
-                        }
-                        else
-                        {
-                            useMenu.Content = charmMenuUse;
-                        }
-
+                        useMenu.Content = (charmMenuUse == "-1") ? "0" : charmMenuUse;
+                        key.Close();
                     }
-                    key.Close();
                 }
 
-                catch (Exception ex)  //just for demonstration...it's always best to handle specific exceptions
+                catch (Exception ex)
                 {
                     //react appropriately
                 }

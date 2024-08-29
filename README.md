@@ -1,19 +1,9 @@
-⚠️ <b>IMPORTANT NOTICE !!</b><br />
-After a physical computer damage accident in May 2023 worsening all the way to November 2023, the power button quit working, and as a result, Charms Bar Port development had to be halted indefinitely and it still is in the state of a possibility it will never be picked up again. Since PC repairs are taking over a year, to the point that I cannot do anything about it, I would like to have you <b>NOT</b> ask when this will be released as I have better things to do.
-
-
-For now, I am stuck with a Mac and in the meantime, please check out <a href="https://github.com/Icepenguins101/australis-theme-port">Australis Theme Port</a> for Mozilla Firefox instead of this project. Australis Theme Port is a holdover until I receive my PC back. Please stay up to date on my <a href="https://www.facebook.com/jayden.montoya">Facebook</a> or <a href="https://www.instagram.com/jaydenwmontoya/">Instagram</a> for the latest updates on when Charms Bar Port will resume. 
-
-
-Please hope that the computer repair fees wouldn't be too large, otherwise I may have to sue Jack Dorsey for discrimination.
-
-Thank you for your patience. May Windows 8.1 live in your hearts and memory.
-
 <hr />
 <p align="center">
 <img id="charmsbarPort" src="resource/logo.png"/>
 </p>
 <hr />
+
 <blockquote>
 "Your most unhappy customers are your greatest source of learning."<br />— Bill Gates
 </blockquote>
@@ -42,29 +32,37 @@ Thank you for your patience. May Windows 8.1 live in your hearts and memory.
 Forked and completely edited from <a href="https://github.com/Jerhynh/CharmsBarRevived">CharmsBarRevived</a>, <b>Charms Bar Port</b> will assist on helping any Charms Bar fan make the jump from Windows 8.1 to Windows 10 or Windows 11, without having to stay on the obsolete operating system forever...
 
 ## Why was this created?
-As you may already know, Microsoft made the annoucement to completely kill off the Charms Bar in Windows 10 in December 17, 2014. There used to be vague ways to restore it in the old days using ValiiNet Charms, PopCharms, RocketDock, etc.
 
+Because we love Charm Bar, which provides quick shortcuts to stuff (although limited and some are useless depending on each user's usage).
 
-ValiNet Charms as of 2023 is no longer available to download, PopCharms was only meant to be used between Windows 10 build 9780 and Windows 10 build 9913, and RocketDock is <b>very</b> outdated, so I created this project primarily to bring my needs of a Charms Bar back.
+The bar was removed with the release of Windows 10.
+
+There are some softwares that do the same work as Charm Bar, but they are mostly outdated.
 
 ## How does it work?
-On touch screens, swipe from the right edge towards to bring up the Charms Bar. If you're a mouse user, swipe to the top right corner and drag your cursor down to open the Charms Bar. You can also use the keyboard shortcut Windows key + C, just like it was on Windows 8.x. Included in the Charms Bar are:
-<br />
-<br />
-<b>Search:</b> Opens the search bar from the taskbar on Win32 programs (easily remappable to function as <a href="https://github.com/srwi/EverythingToolbar">EverythingToolbar</a>, perhaps maybe even more programs that support hotkeys), or on supported Metro apps, brings their Search charm.<br />
-<b>Share:</b> Opens the share charm.<br />
-<b>Start:</b> Opens the start menu/screen. If you are using <a href="https://github.com/Open-Shell/Open-Shell-Menu">Open-Shell</a>, you can remap this button to open up their start menu instead or to completely disable its functionality.<br />
-<b>Devices:</b> Opens the Connect charm. On supported Metro apps, they will open the print dialog.<br />
+
+Move the mouse to the top-right corner of the screen, or swipe from the right (it may call Action Center as well) if using touch screen.
+
+<b>Search:</b> Opens the search bar from the taskbar on Win32 programs (easily remappable to function as <a href="https://github.com/srwi/EverythingToolbar">EverythingToolbar</a>, perhaps maybe even more programs that support hotkeys), or on supported Metro apps, brings their Search charm.
+
+<b>Share:</b> Opens the share charm.
+
+<b>Start:</b> Opens the start menu/screen.
+
+<b>Devices:</b> Opens the Connect charm. On supported Metro apps, they will open the print dialog.
+
 <b>Settings:</b> Opens the Settings Metro app on Win32 programs or the Settings charm on supported Metro apps.
 
 ## Requirements
-* Windows 10 or Windows 11
-* <a href="https://dotnet.microsoft.com/en-us/download/dotnet/7.0">.NET 7.0</a>
+
+* Windows 10 17763 or higher. Windows 11 is in fact 10 with WinUI 3 as primary GUI toolkit...
+* <a href="https://dotnet.microsoft.com/en-us/download/dotnet/8.0">.NET 8.0</a>
 
 ## Features
+
 * Powered by Visual Studio 2022
 * Based on Windows 8.1 Update 3
-* Formatting-aware (uses the OS' time and date formats. If you are using 24-hour and/or date formats like "MM/DD/YYYY", Charms Bar Port will use that format. Custom formats not supported yet)
+* Formatting-aware (uses the OS's time and date formats. If you are using 24-hour and/or date formats like "MM/DD/YYYY", Charms Bar Port will use that format. Custom formats not supported yet)
 * Language-aware (automatically switches depending on your OS language)
 * Includes accent colors
 * Network/battery status included
@@ -95,27 +93,29 @@ On touch screens, swipe from the right edge towards to bring up the Charms Bar. 
 Downloads are coming soon in the near future
 
 ## Q&As
-Q: Are forked repositories the complete edition of Charms Bar Port?<br />
-A: No. They are DEVELOPER builds, as the developer builds are not meant to be used as final products. Charms Bar Port's official release may take some time when I fix every problem associated with it.
-<br />
-<br />
-Q: How can I disable the Charms Bar hot corners without closing the program?<br />
+Q: Are forked repositories the complete edition of Charms Bar Port?
+
+A: Yes or no, depending on the work on that repository. Be careful for any suspicious actions when you use the application.
+
+Q: How can I disable the Charms Bar hot corners without closing the program?
+
 A: This requires fiddling with the registry. I am not responsible if you mess up your system.
-<br />
+
 1. Press the “WIN+R” key combination to launch the Run dialog box, then type regedit and press enter. It’ll open the Registry Editor, and go to following key: HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ImmersiveShell\
 2. Under the ImmersiveShell key, create a new key called EdgeUI.
 3. Now select the newly created key “EdgeUI” and in the right-side pane, create two new DWORDs named <b>DisableTRCorner</b> and <b>DisableBRCorner</b> and set their values to 1. Alternatively, select the newly created key “EdgeUI” and in the right-side pane, create a new DWORD named <b>DisableCharmsHint</b> and set the value to 1.
 4. That’s it. It’ll immediately disable the Charms Bar hot corners. You do not need to log off or restart the system. If you want to revert the change, set the values of <b>DisableTRCorner</b> and <b>DisableBRCorner</b> or <b>DisableCharmsHint</b>, to 0 or delete the <b>DisableTRCorner</b> and <b>DisableBRCorner</b>, or <b>DisableCharmsHint</b> DWORDs.
-<br />
-Q: When will this be released?<br />
-A: Be patient. Charms Bar Port will be released as soon as possible when I have all the time to finalize everything and fix some critical bugs.
-<br />
-<br />
-Q: I'm using a touch screen, why does the Action Center always open with the charms bar?<br />
+
+Q: When will this be released?
+
+A: No ETA. There is a huge mess in the source code. And of course, patches and suggestions are welcome.
+
+Q: I'm using a touch screen, why does the Action Center always open with the charms bar?
+
 A: This is because the action center uses the same gesture. Disable it first to start using the charms bar on your tablet/touch-enabled PC.
-<br />
-<br />
-Q: How can I switch to the Windows 10 Technical Preview style on Charms Bar Port?<br />
+
+Q: How can I switch to the Windows 10 Technical Preview style on Charms Bar Port?
+
 A: For a true Windows 10 Technical Preview style, you must stay on the Windows 8.1 Charms Bar theme and requires fiddling with the registry. I am not responsible if you mess up your system.<br />
 <br />
 <ol>
@@ -125,52 +125,56 @@ HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ImmersiveShell\</li>
   <li>Now select the newly created key “EdgeUI” and in the right-side pane, create a new DWORD named <b>DisableSettingsCharm</b> and set the value to 1.</li>
   <li>That’s it. It’ll remove the Settings panel from the Charms Bar, emulating the style of Windows 10 Technical Preview. You do not need to log off or restart the system. If you want to revert the change, set the value to 0 or delete the <b>DisableSettingsCharm</b> DWORD.</li>
   </ol>
-<br />
-Q: Win+C is taken, can you use another hotkey?<br />
-A: No, this is to make the experience more authentic. Close the program that is using Win+C and Charms Bar Port will use that hotkey.
-<br />
-<br />
-Q: Is this safe to use?<br />
+
+Q: Win+C is taken, can you use another hotkey?
+
+A: No, unless you edit the source code yourself.
+
+Q: Is this safe to use?
+
 A: Yes, it should be. Any antivirus programs complaining should be registered as a false positive.
-<br />
-<br />
-Q: Why are the animations stiff?<br />
+
+Q: Why are the animations stiff?
+
 A: I'm new to C#, so the animations may not match.
-<br />
-<br />
-Q: Why does this program not support Windows 7 and Windows 8.1?<br />
-A: For Windows 7 users, Charms Bar Port is meant to be used on Windows 10 and Windows 11. If you want a Charms Bar for Windows 7 look elsewhere. And for Windows 8.1 users, the Charms Bar is already on your system. There's no need to create another one.
-<br />
-<br />
-Q: How does multi-monitor support work?<br />
+
+Q: Why does this program not support Windows 7 and Windows 8.1?
+
+A: This program is not meant to be made for Windows 7 (not tested). 8/8.1? You already have the REAL one there.
+
+Q: How does multi-monitor support work?
+
 A: If you have two or more monitors, moving your mouse to the next monitor(s) will increase the activeScreen parameter (activeScreen = 0 is monitor 1, activeScreen = 1 is monitor 2, vice versa), forcing the Charms Bar to be moved over to the next screen. If it's activated by mouse but not completely "spread-out", moving to the next monitor will force the Charms Bar to deactivate, to fix a bug that the original version had (if you activated it on monitor 1 and moved your cursor to monitor 2 it will stay on the screen).
-<br />
-<br />
-Q: I'm trying to ALT+F4 the program but it won't let me. Why?<br />
+
+Q: I'm trying to ALT+F4 the program but it won't let me. Why?
+
 A: This was meant to fix a crash bug. Use Task Manager if you want to stop the program.
-<br />
-<br />
-Q: Why is it lagging on my machine?<br />
-A: The network icon in the Charms Clock uses the command prompt to receive network information. I'm still trying to improve performance of the program.
-<br />
-<br />
-Q: Why is it flickering on my machine?<br />
+
+Q: Why is it lagging on my machine?
+
+A: The source code is a huge mess. Just that.
+
+Q: Why is it flickering on my machine?
+
 A: This is a hardware specific problem. I'm planning to outsource this program to another developer to see if they can fix this better than I can. If you want to assist, please <a href="mailto:jaydenwmontoya@icloud.com">email me</a>.
-<br />
-<br />
-Q: Can I fork this repository to release your work now?<br />
+
+
+Q: Can I fork this repository to release your work now?
+
 A: No. You can only fork it to make changes and released developer builds are not to be used for local purposes. There will be bugs on your repository and isn't stable for personal use yet.
-<br />
-<br />
-Q: Will you do more ports from Windows 8.1?<br />
+
+
+Q: Will you do more ports from Windows 8.1?
+
 A: I really would love to make more ports from Windows 8.1 as I'm considering to make an App Switcher and Start Screen ports, but I would really need assistance for the start screen port to replace the default Windows start menu (or screen, if you're in 10 with the "fullscreen Start" option switched on).
-<br />
-<br />
-Q: Will there be a version for Mac OS X and Linux?<br />
+
+
+Q: Will there be a version for Mac OS X and Linux?
+
 A: <b>No.</b> Microsoft owns full ownership of the charms bar and it would be infringement to create Charms Bar Port on those systems.
-<br />
-<br />
-Q: How can I contact you?<br />
+
+Q: How can I contact you?
+
 A: You can <a href="mailto:jaydenwmontoya@icloud.com">email me</a> for any assistance regarding Charms Bar Port and other products I have created.
 
 ## Disclaimer

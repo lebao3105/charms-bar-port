@@ -1,16 +1,18 @@
-﻿using NativeCode;
+﻿using Microsoft.Win32;
+using NativeCode;
 using System;
-using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Metadata;
 using System.Runtime;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,20 +33,18 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Xml;
 using System.Xml.Linq;
-using Microsoft.Win32;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.ApplicationModel.DataTransfer.ShareTarget;
 using Windows.Storage;
-using Windows.Storage.Streams;
-using Windows.Storage.Search;
 using Windows.Storage.Pickers;
 using Windows.Storage.Provider;
+using Windows.Storage.Search;
+using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Text;
 using WinRT;
-using System.Globalization;
 
 namespace CharmsBarPort
 {
@@ -190,9 +190,9 @@ namespace CharmsBarPort
         public int charmsTimer = 0;
         public int charmsWait = 0;
         public bool WinCharmUse = false;
-        public int charmsDelay = 100;
-        public int myCharmsDelay = 100; // Desktop delay: you can customize the delay option through Regedit.
-        public int charmsDelay2 = 100; // Metro delay: you can customize the delay option through Regedit.
+        public int charmsDelay = 50;
+        public int myCharmsDelay = 50; // Desktop delay: you can customize the delay option through Regedit.
+        public int charmsDelay2 = 50; // Metro delay: you can customize the delay option through Regedit.
         public int charmsReturn = 0; //to fix a problem where you can't swipe back in after it's gone
         public int activeIcon = 2;
         public bool mouseIn = false;
@@ -326,38 +326,38 @@ namespace CharmsBarPort
             e.Cancel = true;
         }
 
-private string GetActiveWindowTitle()
-{
-    const int nChars = 256;
-    StringBuilder Buff = new StringBuilder(nChars);
-    IntPtr handle = GetForegroundWindow();
+        private string GetActiveWindowTitle()
+        {
+            const int nChars = 256;
+            StringBuilder Buff = new StringBuilder(nChars);
+            IntPtr handle = GetForegroundWindow();
 
-    if (GetWindowText(handle, Buff, nChars) > 0)
-    {
-        return Buff.ToString();
-    }
-    return null;
-}
+            if (GetWindowText(handle, Buff, nChars) > 0)
+            {
+                return Buff.ToString();
+            }
+            return null;
+        }
 
-   [DllImport("user32.dll",CharSet=CharSet.Auto, CallingConvention=CallingConvention.StdCall)]
-   public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
-   //Mouse actions
-   private const int MOUSEEVENTF_LEFTDOWN = 0x02;
-   private const int MOUSEEVENTF_LEFTUP = 0x04;
-   private const int MOUSEEVENTF_RIGHTDOWN = 0x08;
-   private const int MOUSEEVENTF_RIGHTUP = 0x10;
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
+        //Mouse actions
+        private const int MOUSEEVENTF_LEFTDOWN = 0x02;
+        private const int MOUSEEVENTF_LEFTUP = 0x04;
+        private const int MOUSEEVENTF_RIGHTDOWN = 0x08;
+        private const int MOUSEEVENTF_RIGHTUP = 0x10;
 
         [DllImport("User32.dll")]
         private static extern bool SetCursorPos(int X, int Y);
 
-        [DllImport("user32.dll", EntryPoint = "FindWindow", SetLastError = true)] 
-    static extern IntPtr FindWindow(string lpClassName, string lpWindowName); 
-    [DllImport("user32.dll", EntryPoint = "SendMessage", SetLastError = true)] 
-    static extern IntPtr SendMessage(IntPtr hWnd, Int32 Msg, IntPtr wParam, IntPtr lParam); 
+        [DllImport("user32.dll", EntryPoint = "FindWindow", SetLastError = true)]
+        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        [DllImport("user32.dll", EntryPoint = "SendMessage", SetLastError = true)]
+        static extern IntPtr SendMessage(IntPtr hWnd, Int32 Msg, IntPtr wParam, IntPtr lParam);
 
-    const int WM_COMMAND = 0x111; 
-    const int MIN_ALL = 419; 
-    const int MIN_ALL_UNDO = 416; 
+        const int WM_COMMAND = 0x111;
+        const int MIN_ALL = 419;
+        const int MIN_ALL_UNDO = 416;
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern int GetSystemMetrics(int nIndex);
@@ -407,27 +407,30 @@ private string GetActiveWindowTitle()
                 }
                 mouseIn = false;
 
-                SearchDown.Visibility = Visibility.Hidden;
-                ShareDown.Visibility = Visibility.Hidden;
-                WinDown.Visibility = Visibility.Hidden;
-                DevicesDown.Visibility = Visibility.Hidden;
-                SettingsDown.Visibility = Visibility.Hidden;
+                // Already set in .xaml
 
-                SearchText.Visibility = Visibility.Hidden;
-                ShareText.Visibility = Visibility.Hidden;
-                WinText.Visibility = Visibility.Hidden;
-                DevicesText.Visibility = Visibility.Hidden;
-                SettingsText.Visibility = Visibility.Hidden;
+                //SearchDown.Visibility = Visibility.Hidden;
+                //ShareDown.Visibility = Visibility.Hidden;
+                //WinDown.Visibility = Visibility.Hidden;
+                //DevicesDown.Visibility = Visibility.Hidden;
+                //SettingsDown.Visibility = Visibility.Hidden;
 
-                SearchCharm.Visibility = Visibility.Hidden;
-                ShareCharm.Visibility = Visibility.Hidden;
-                MetroColor.Visibility = Visibility.Hidden;
-                DevicesCharm.Visibility = Visibility.Hidden;
-                SettingsCharm.Visibility = Visibility.Hidden;
+                //SearchText.Visibility = Visibility.Hidden;
+                //ShareText.Visibility = Visibility.Hidden;
+                //WinText.Visibility = Visibility.Hidden;
+                //DevicesText.Visibility = Visibility.Hidden;
+                //SettingsText.Visibility = Visibility.Hidden;
 
-                SearchCharmInactive.Visibility = Visibility.Visible;
-                ShareCharmInactive.Visibility = Visibility.Visible;
-                NoColor.Visibility = Visibility.Visible;
+                //SearchCharm.Visibility = Visibility.Hidden;
+                //ShareCharm.Visibility = Visibility.Hidden;
+                //MetroColor.Visibility = Visibility.Hidden;
+                //DevicesCharm.Visibility = Visibility.Hidden;
+                //SettingsCharm.Visibility = Visibility.Hidden;
+
+                //SearchCharmInactive.Visibility = Visibility.Visible;
+                //ShareCharmInactive.Visibility = Visibility.Visible;
+                //NoColor.Visibility = Visibility.Visible;
+
                 if (vn4.Content != "0" && vn4.Content != "-1")
                 {
                     DevicesCharmInactive.Visibility = Visibility.Hidden;
@@ -446,11 +449,11 @@ private string GetActiveWindowTitle()
                     SettingsCharmInactive.Visibility = Visibility.Visible;
                 }
 
-                SearchHover.Visibility = Visibility.Hidden;
-                ShareHover.Visibility = Visibility.Hidden;
-                WinHover.Visibility = Visibility.Hidden;
-                DevicesHover.Visibility = Visibility.Hidden;
-                SettingsHover.Visibility = Visibility.Hidden;
+                //SearchHover.Visibility = Visibility.Hidden;
+                //ShareHover.Visibility = Visibility.Hidden;
+                //WinHover.Visibility = Visibility.Hidden;
+                //DevicesHover.Visibility = Visibility.Hidden;
+                //SettingsHover.Visibility = Visibility.Hidden;
 
                 charmsUse = false;
             }
@@ -514,9 +517,7 @@ private string GetActiveWindowTitle()
                 }
                 else
                 {
-                    {
-                        CharmsClock.Hide();
-                    }
+                    CharmsClock.Hide();
                 }
             }
 
@@ -973,20 +974,20 @@ private string GetActiveWindowTitle()
                         isMetro = true;
                         isGui = false;
                     }
-                else if (isWinGui(handle) == true)
-                {
-                    ActiveWindow.Content = handle.ToString();
-                    charmsDelay = charmsDelay2;
-                    isMetro = false;
-                    isGui = true;
-                }
-                else
-                {
-                    ActiveWindow.Content = handle.ToString();
-                    charmsDelay = myCharmsDelay;
-                    isMetro = false;
-                    isGui = false;
-                }
+                    else if (isWinGui(handle) == true)
+                    {
+                        ActiveWindow.Content = handle.ToString();
+                        charmsDelay = charmsDelay2;
+                        isMetro = false;
+                        isGui = true;
+                    }
+                    else
+                    {
+                        ActiveWindow.Content = handle.ToString();
+                        charmsDelay = myCharmsDelay;
+                        isMetro = false;
+                        isGui = false;
+                    }
                 }
 
                 if (this.IsActive == true)
@@ -1020,14 +1021,14 @@ private string GetActiveWindowTitle()
                         string noFade = key.GetValue("DisableStartFade", -1, RegistryValueOptions.None).ToString(); //in Windows 8.1 animations must be disabled to do the trick, but here it's used to remove the fading effect of the start charm whilst keeping the Charms Bar animations.
                         string charmMenuUse = key.GetValue("EnableCharmsMenu", -1, RegistryValueOptions.None).ToString(); //this is not in Windows 8.1, but used to remove the Charms Clock
 
-                            if (noClock == "-1")
-                            {
-                                noClocks.Content = "0";
-                            }
-                            else
-                            {
-                                noClocks.Content = noClock;
-                            }
+                        if (noClock == "-1")
+                        {
+                            noClocks.Content = "0";
+                        }
+                        else
+                        {
+                            noClocks.Content = noClock;
+                        }
 
                         if (charmMenuUse == "-1")
                         {
@@ -1038,23 +1039,23 @@ private string GetActiveWindowTitle()
                             useMenu.Content = charmMenuUse;
                         }
 
-                            if (m == "-1")
-                            {
-                                vn.Content = "0";
-                            }
-                            else
-                            {
-                                vn.Content = m;
+                        if (m == "-1")
+                        {
+                            vn.Content = "0";
+                        }
+                        else
+                        {
+                            vn.Content = m;
 
-                            }
-                            if (n == "-1")
-                            {
-                                vn2.Content = "0";
-                            }
-                            else
-                            {
-                                vn2.Content = n;
-                            }
+                        }
+                        if (n == "-1")
+                        {
+                            vn2.Content = "0";
+                        }
+                        else
+                        {
+                            vn2.Content = n;
+                        }
 
                         if (IHOb < 0.02 && charmsUse == false)
                         {
@@ -1229,68 +1230,14 @@ private string GetActiveWindowTitle()
                                 }
                             }
 
-                            if (noSettings == "-1")
-                            {
-                                vn3.Content = "0";
-                            }
-                            else
-                            {
-                                vn3.Content = noSettings;
-                            }
+                            vn3.Content = noSettings == "-1" ? "0" : noSettings;
+                            vn4.Content = noDevices == "-1" ? "0" : noDevices;
+                            vn5.Content = noSearch == "-1" ? "0" : noSearch;
+                            vn6.Content = noShare == "-1" ? "0" : noShare;
+                            vn7.Content = noWin == "-1" ? "0" : noWin;
+                            noClocks.Content = noClock == "-1" ? "0" : noClock;
+                            noFades.Content = noFade == "-1" ? "0" : noFade;
 
-                            if (noDevices == "-1")
-                            {
-                                vn4.Content = "0";
-                            }
-                            else
-                            {
-                                vn4.Content = noDevices;
-                            }
-
-                            if (noSearch == "-1")
-                            {
-                                vn5.Content = "0";
-                            }
-                            else
-                            {
-                                vn5.Content = noSearch;
-                            }
-
-                            if (noShare == "-1")
-                            {
-                                vn6.Content = "0";
-                            }
-                            else
-                            {
-                                vn6.Content = noShare;
-                            }
-
-                            if (noWin == "-1")
-                            {
-                                vn7.Content = "0";
-                            }
-                            else
-                            {
-                                vn7.Content = noWin;
-                            }
-
-                            if (noClock == "-1")
-                            {
-                                noClocks.Content = "0";
-                            }
-                            else
-                            {
-                                noClocks.Content = noClock;
-                            }
-
-                            if (noFade == "-1")
-                            {
-                                noFades.Content = "0";
-                            }
-                            else
-                            {
-                                noFades.Content = noFade;
-                            }
                             myCharmsDelay = 100;
                             charmsDelay2 = 100;
                         }
@@ -2000,14 +1947,7 @@ private string GetActiveWindowTitle()
 
                 try
                 {
-                    if (System.Windows.Forms.Cursor.Current.IsVisible() == false)
-                    {
-                        usingTouch = true;
-                    }
-                    else
-                    {
-                        usingTouch = false;
-                    }
+                    usingTouch = !System.Windows.Forms.Cursor.Current.IsVisible();
                 }
 
                 catch (Exception err)
@@ -2061,74 +2001,64 @@ private string GetActiveWindowTitle()
                     settingsActive = false;
                 }
 
-                if (System.Windows.Forms.Control.MouseButtons == MouseButtons.Left && searchHover == true)
+                if (System.Windows.Forms.Control.MouseButtons == MouseButtons.Left)
                 {
-                    searchActive = true;
+                    if (searchHover) searchActive = true;
+                    if (shareHover) shareActive = true;
+                    if (winHover) winActive = true;
+                    if (devicesHover) devicesActive = true;
+                    if (settingsHover) settingsActive = true;
                 }
-                else
-                {
-                    searchActive = false;
-                }
+                //searchActive = (System.Windows.Forms.Control.MouseButtons == MouseButtons.Left && searchHover == true);
 
-                if (System.Windows.Forms.Control.MouseButtons == MouseButtons.Left && shareHover == true)
-                {
-                    shareActive = true;
-                }
-                else
-                {
-                    shareActive = false;
-                }
+                //if (System.Windows.Forms.Control.MouseButtons == MouseButtons.Left && shareHover == true)
+                //{
+                //    shareActive = true;
+                //}
+                //else
+                //{
+                //    shareActive = false;
+                //}
 
-                if (System.Windows.Forms.Control.MouseButtons == MouseButtons.Left && winHover == true)
-                {
-                    winActive = true;
-                }
-                else
-                {
-                    winActive = false;
-                }
+                //if (System.Windows.Forms.Control.MouseButtons == MouseButtons.Left && winHover == true)
+                //{
+                //    winActive = true;
+                //}
+                //else
+                //{
+                //    winActive = false;
+                //}
 
-                if (System.Windows.Forms.Control.MouseButtons == MouseButtons.Left && devicesHover == true)
-                {
-                    devicesActive = true;
-                }
-                else
-                {
-                    devicesActive = false;
-                }
+                //if (System.Windows.Forms.Control.MouseButtons == MouseButtons.Left && devicesHover == true)
+                //{
+                //    devicesActive = true;
+                //}
+                //else
+                //{
+                //    devicesActive = false;
+                //}
 
-                if (System.Windows.Forms.Control.MouseButtons == MouseButtons.Left && settingsHover == true)
-                {
-                    settingsActive = true;
-                }
-                else
-                {
-                    settingsActive = false;
-                }
+                //if (System.Windows.Forms.Control.MouseButtons == MouseButtons.Left && settingsHover == true)
+                //{
+                //    settingsActive = true;
+                //}
+                //else
+                //{
+                //    settingsActive = false;
+                //}
 
                 if (SystemParameters.WindowGlassBrush.ToString() != "#FFFAFAFA")
                 {
                     WinFader.Source = new BitmapImage(new Uri(@"/Assets/Images/fader.png", UriKind.Relative));
                 }
 
-                if (SystemParameters.WindowGlassBrush.ToString() == "#FFFAFAFA")
+                else
                 {
-                    WinFader.Source = new BitmapImage(new Uri(@"/Assets/Images/fader light.png", UriKind.Relative));
+                    WinFader.Source = new BitmapImage(new Uri(@"/Assets/Images/faderLight.png", UriKind.Relative));
                 }
 
-                if (Keyboard.IsKeyDown(Key.LWin) && Keyboard.IsKeyDown(Key.C) && keyboardShortcut == false)
-                {
-                    pokeCharms = true;
-                    charmsAppear = true;
-                    charmsActivate = true;
-                    charmsUse = true;
-                    keyboardShortcut = true;
-                    this.BringIntoView();
-                    this.Focus();
-                    this.Activate();
-                }
-
-                if (Keyboard.IsKeyDown(Key.RWin) && Keyboard.IsKeyDown(Key.C) && keyboardShortcut == false)
+                if ((Keyboard.IsKeyDown(Key.LWin) || Keyboard.IsKeyDown(Key.RWin)) &&
+                    Keyboard.IsKeyDown(Key.C) && keyboardShortcut == false)
                 {
                     pokeCharms = true;
                     charmsAppear = true;
@@ -2140,30 +2070,25 @@ private string GetActiveWindowTitle()
                     this.Activate();
                 }
 
-                    if (charmsUse == false)
-                    {
-                        CharmBG.Opacity = 0.000;
-                        CharmBG.Visibility = Visibility.Hidden;
-                    }
-                    else
-                    {
-                        CharmBG.Visibility = Visibility.Visible;
-                    }
+                if (charmsUse == false)
+                {
+                    CharmBG.Opacity = 0.000;
+                    CharmBG.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    CharmBG.Visibility = Visibility.Visible;
+                }
 
                 //finally, a new solution to making the charms bar less hostile!
-                if (preventReload == true)
+                if (preventReload || (outofTime && holder && cursorStay < charmsExpire))
                 {
                     blockRepeating = 0;
                 }
 
-                if (preventReload == false)
+                else
                 {
                     blockRepeating += 1;
-                }
-
-                if (outofTime == true && holder == true && cursorStay < charmsExpire)
-                {
-                    blockRepeating = 0;
                 }
 
                 if (charmsUse == false)
@@ -2206,7 +2131,6 @@ private string GetActiveWindowTitle()
                         outofTime = false;
                         swipeIn = true;
                     }
-
                 }
 
                 if (charmsUse == false)
@@ -2220,14 +2144,7 @@ private string GetActiveWindowTitle()
                             WinCharm.Opacity -= 0.1;
                             MetroColor.Opacity -= 0.1;
                         }
-                        if (IHOb > 0.5)
-                        {
-                            dasSlide = -350;
-                        }
-                        else
-                        {
-                            dasSlide = -410;
-                        }
+                        dasSlide = IHOb > 0.5 ? -350 : -410;
                     }
 
                     if (useAnimations == false)
@@ -2365,309 +2282,272 @@ private string GetActiveWindowTitle()
                     SettingsDown.Visibility = Visibility.Hidden;
                 }
 
-                if (this.ShowInTaskbar == false)
+                if (charmsUse == false && IHOb < 0.012)
                 {
-                    if (charmsUse == false && IHOb < 0.012)
+                    forceClose = false;
+                    ignoreMouseIn = false;
+                    CharmsClock.Hide();
+                }
+
+                if (charmsUse == true || charmsMenuOpen == true)
+                {
+                    if (noClocks.Content == "-1" || noClocks.Content == "0")
                     {
-                        forceClose = false;
-                        ignoreMouseIn = false;
-                        CharmsClock.Hide();
+                        CharmsClock.Show();
                     }
+                }
 
-                    if (charmsUse == true || charmsMenuOpen == true)
+                if (WinCharm.Visibility == Visibility.Hidden && charmsUse == false)
+                {
+                    var brush = (Brush)converter.ConvertFromString("#00111111");
+                    Background = brush;
+                }
+
+                if (useAnimations == true)
+                {
+                    if (charmsAppear == true && numVal < mainwidth - 116 && keyboardShortcut == false && activeScreen == 0 || charmsAppear == true && numVal < screenwidth - 116 && keyboardShortcut == false && activeScreen > 0 || charmsAppear == true && keyboardShortcut == true && this.IsActive == false || charmsAppear == true && keyboardShortcut == true && escKey == true || ignoreMouseIn == true && pokeCharms == true || outofTime == true && pokeCharms == true || forceClose == true)
                     {
-                        if (noClocks.Content == "-1" || noClocks.Content == "0")
-                        {
-                            CharmsClock.Show();
-                        }
+                        IHOb -= 0.141;
+                        SearchCharmInactive.Opacity = IHOb;
+                        ShareCharmInactive.Opacity = IHOb;
+                        NoColor.Opacity = IHOb;
+                        DevicesCharmInactive.Opacity = IHOb;
+                        SettingsCharmInactive.Opacity = IHOb;
                     }
+                }
 
-                    if (WinCharm.Visibility == Visibility.Hidden && charmsUse == false)
+                if (useAnimations == false)
+                {
+                    if (charmsAppear == true && numVal < mainwidth - 116 && keyboardShortcut == false && activeScreen == 0 || charmsAppear == true && numVal < screenwidth - 116 && keyboardShortcut == false && activeScreen > 0 || charmsAppear == true && keyboardShortcut == true && this.IsActive == false || charmsAppear == true && keyboardShortcut == true && escKey == true || ignoreMouseIn == true && pokeCharms == true || outofTime == true && pokeCharms == true || forceClose == true)
                     {
-                        var brush = (Brush)converter.ConvertFromString("#00111111");
-                        Background = brush;
+                        IHOb = 0.00;
+                        SearchCharmInactive.Opacity = IHOb;
+                        ShareCharmInactive.Opacity = IHOb;
+                        NoColor.Opacity = IHOb;
+                        DevicesCharmInactive.Opacity = IHOb;
+                        SettingsCharmInactive.Opacity = IHOb;
                     }
+                }
 
-                    if (useAnimations == true)
+                if (charmsAppear == true && IHOb < 0.000 && keyboardShortcut == true)
+                {
+                    keyboardShortcut = false;
+                }
+
+                if (useAnimations == true)
+                {
+                    if (charmsAppear == false && IHOb > 0.000 && keyboardShortcut == false && forceClose == false || dasSwiper == true || charmsAppear == true && escKey == true && keyboardShortcut == true || outofTime == true && pokeCharms == true && keyboardShortcut == false || forceClose == true)
                     {
-                        if (charmsAppear == true && numVal < mainwidth - 116 && keyboardShortcut == false && activeScreen == 0 || charmsAppear == true && numVal < screenwidth - 116 && keyboardShortcut == false && activeScreen > 0 || charmsAppear == true && keyboardShortcut == true && this.IsActive == false || charmsAppear == true && keyboardShortcut == true && escKey == true || ignoreMouseIn == true && pokeCharms == true || outofTime == true && pokeCharms == true || forceClose == true)
-                        {
-                            IHOb -= 0.141;
-                            SearchCharmInactive.Opacity = IHOb;
-                            ShareCharmInactive.Opacity = IHOb;
-                            NoColor.Opacity = IHOb;
-                            DevicesCharmInactive.Opacity = IHOb;
-                            SettingsCharmInactive.Opacity = IHOb;
-                        }
+                        IHOb -= 0.061;
+                        this.Opacity = IHOb;
+                        CharmsClock.Opacity = IHOb;
                     }
+                }
 
-                    if (useAnimations == false)
+                if (useAnimations == false)
+                {
+                    if (charmsAppear == false && IHOb > 0.000 && keyboardShortcut == false && forceClose == false || dasSwiper == true || charmsAppear == true && escKey == true && keyboardShortcut == true || outofTime == true && pokeCharms == true && keyboardShortcut == false || forceClose == true)
                     {
-                        if (charmsAppear == true && numVal < mainwidth - 116 && keyboardShortcut == false && activeScreen == 0 || charmsAppear == true && numVal < screenwidth - 116 && keyboardShortcut == false && activeScreen > 0 || charmsAppear == true && keyboardShortcut == true && this.IsActive == false || charmsAppear == true && keyboardShortcut == true && escKey == true || ignoreMouseIn == true && pokeCharms == true || outofTime == true && pokeCharms == true || forceClose == true)
-                        {
-                            IHOb = 0.00;
-                            SearchCharmInactive.Opacity = IHOb;
-                            ShareCharmInactive.Opacity = IHOb;
-                            NoColor.Opacity = IHOb;
-                            DevicesCharmInactive.Opacity = IHOb;
-                            SettingsCharmInactive.Opacity = IHOb;
-                        }
+                        IHOb = 0.00;
+                        this.Opacity = IHOb;
+                        CharmsClock.Opacity = IHOb;
                     }
+                }
 
-                    if (charmsAppear == true && IHOb < 0.000 && keyboardShortcut == true)
+                if (activeScreen == 0)
+                {
+                    if (charmsAppear == true && numVal < mainwidth - 116 && IHOb < 0.000 && escKey == false && keyboardShortcut == false && outofTime == false && ignoreMouseIn == false && forceClose == false)
                     {
-                        keyboardShortcut = false;
-                    }
-
-                    if (useAnimations == true)
-                    {
-                        if (charmsAppear == false && IHOb > 0.000 && keyboardShortcut == false && forceClose == false || dasSwiper == true || charmsAppear == true && escKey == true && keyboardShortcut == true || outofTime == true && pokeCharms == true && keyboardShortcut == false || forceClose == true)
-                        {
-                            IHOb -= 0.061;
-                            this.Opacity = IHOb;
-                            CharmsClock.Opacity = IHOb;
-                        }
-                    }
-
-                    if (useAnimations == false)
-                    {
-                        if (charmsAppear == false && IHOb > 0.000 && keyboardShortcut == false && forceClose == false || dasSwiper == true || charmsAppear == true && escKey == true && keyboardShortcut == true || outofTime == true && pokeCharms == true && keyboardShortcut == false || forceClose == true)
-                        {
-                            IHOb = 0.00;
-                            this.Opacity = IHOb;
-                            CharmsClock.Opacity = IHOb;
-                        }
-                    }
-
-                    if (activeScreen == 0)
-                    {
-                        if (charmsAppear == true && numVal < mainwidth - 116 && IHOb < 0.000 && escKey == false && keyboardShortcut == false && outofTime == false && ignoreMouseIn == false && forceClose == false)
-                        {
-                            IHOb = 1.0;
-                            SearchCharmInactive.Opacity = IHOb;
-                            ShareCharmInactive.Opacity = IHOb;
-                            NoColor.Opacity = IHOb;
-                            DevicesCharmInactive.Opacity = IHOb;
-                            SettingsCharmInactive.Opacity = IHOb;
-                            this.Opacity = 0.000;
-                            charmsAppear = false;
-                            charmsTimer = 0;
-                            pokeCharms = false;
-                        }
-                    }
-
-                    if (activeScreen > 0)
-                    {
-                        if (charmsAppear == true && numVal < screenwidth - 116 && IHOb < 0.000 && escKey == false && keyboardShortcut == false && outofTime == false && ignoreMouseIn == false && forceClose == false)
-                        {
-                            IHOb = 1.0;
-                            SearchCharmInactive.Opacity = IHOb;
-                            ShareCharmInactive.Opacity = IHOb;
-                            NoColor.Opacity = IHOb;
-                            DevicesCharmInactive.Opacity = IHOb;
-                            SettingsCharmInactive.Opacity = IHOb;
-                            this.Opacity = 0.000;
-                            charmsAppear = false;
-                            charmsTimer = 0;
-                        }
-                    }
-
-                    if (IHOb < 0.000 && keyboardShortcut == false)
-                    {
-                        SearchDown.Visibility = Visibility.Hidden;
-                        ShareDown.Visibility = Visibility.Hidden;
-                        WinDown.Visibility = Visibility.Hidden;
-                        DevicesDown.Visibility = Visibility.Hidden;
-                        SettingsDown.Visibility = Visibility.Hidden;
-
-                        SearchText.Visibility = Visibility.Hidden;
-                        ShareText.Visibility = Visibility.Hidden;
-                        WinText.Visibility = Visibility.Hidden;
-                        DevicesText.Visibility = Visibility.Hidden;
-                        SettingsText.Visibility = Visibility.Hidden;
-
-                        SearchCharm.Visibility = Visibility.Hidden;
-                        ShareCharm.Visibility = Visibility.Hidden;
-                        MetroColor.Visibility = Visibility.Hidden;
-                        DevicesCharm.Visibility = Visibility.Hidden;
-                        SettingsCharm.Visibility = Visibility.Hidden;
-                        ignoreMouseIn = false;
-                        var brush = (Brush)converter.ConvertFromString("#00111111");
-                        Background = brush;
-                        swipeIn = false;
-                        charmsUse = false;
+                        IHOb = 1.0;
+                        SearchCharmInactive.Opacity = IHOb;
+                        ShareCharmInactive.Opacity = IHOb;
+                        NoColor.Opacity = IHOb;
+                        DevicesCharmInactive.Opacity = IHOb;
+                        SettingsCharmInactive.Opacity = IHOb;
+                        this.Opacity = 0.000;
                         charmsAppear = false;
                         charmsTimer = 0;
-                        charmsWait = 0;
-                        swipeIn = false;
-                        keyboardShortcut = false;
                         pokeCharms = false;
-                        CharmsClock.Opacity = 0.000;
-                        CharmsClock.Hide();
                     }
-
-                    if (useAnimations == true)
-                    {
-                        if (charmsAppear == true && pokeCharms == true && keyboardShortcut == false && IHOb < 1.0 && charmsUse == false && ignoreMouseIn == false && forceClose == false)
-                        {
-                            IHOb += 0.10;
-                            SearchCharmInactive.Opacity = IHOb;
-                            ShareCharmInactive.Opacity = IHOb;
-                            NoColor.Opacity = IHOb;
-                            DevicesCharmInactive.Opacity = IHOb;
-                            SettingsCharmInactive.Opacity = IHOb;
-                        }
-                    }
-
-                    if (useAnimations == false)
-                    {
-                        if (charmsAppear == true && pokeCharms == true && keyboardShortcut == false && IHOb < 1.0 && charmsUse == false && ignoreMouseIn == false && forceClose == false)
-                        {
-                            IHOb = 1.00;
-                            SearchCharmInactive.Opacity = IHOb;
-                            ShareCharmInactive.Opacity = IHOb;
-                            NoColor.Opacity = IHOb;
-                            DevicesCharmInactive.Opacity = IHOb;
-                            SettingsCharmInactive.Opacity = IHOb;
-                        }
-                    }
-
-                    if (charmsUse == false && IHOb < 0.000)
-                    {
-                        IHOb = 0.000;
-                        ignoreMouseIn = false;
-                        escKey = false;
-                    }
-
-                    if (useAnimations == true)
-                    {
-                        if (charmsAppear == true && IHOb < 1.1 && ignoreMouseIn == false)
-                        {
-                            IHOb += 0.05;
-                            this.Opacity = IHOb;
-                            CharmsClock.Opacity = IHOb;
-                        }
-                    }
-
-                    if (useAnimations == false)
-                    {
-                        if (charmsAppear == true && IHOb < 1.1 && ignoreMouseIn == false)
-                        {
-                            IHOb = 1.00;
-                            this.Opacity = IHOb;
-                            CharmsClock.Opacity = IHOb;
-                        }
-                    }
-
-                    if (charmsWait > charmsExpire && charmsUse == false && charmsReturn == dasBoot)
-                    {
-                        outofTime = true;
-                        preventReload = false;
-                    }
-
-                    if (charmsWait < charmsExpire && numVal < mainwidth - 116)
-                    {
-                        outofTime = false;
-                    }
-
-                    if (this.Opacity < 0.1)
-                    {
-                        charmsWait = 0;
-                    }
-
-                    if (CharmBG.Opacity < 1.1 && charmsUse == true && charmsAppear == true && useAnimations == true && outofTime == false && forceClose == false)
-                    {
-                        if (keyboardShortcut == false)
-                        {
-                            WinCharm.Opacity += 0.1;
-                            MetroColor.Opacity += 0.1;
-                            FadeBlocker.Opacity += 0.1;
-                            CharmBG.Opacity += 0.1;
-                        }
-                    }
-
-                    if (CharmBG.Opacity < 1.1 && charmsUse == true && charmsAppear == true && useAnimations == false && outofTime == false && forceClose == false)
-                    {
-                        if (keyboardShortcut == false)
-                        {
-                            WinCharm.Opacity = 1.00;
-                            MetroColor.Opacity = 1.00;
-                            FadeBlocker.Opacity = 1.00;
-                            CharmBG.Opacity = 1.00;
-                        }
-                    }
-
-                    var searchDas = new Thickness(scrollSearch, -11, 12, -66);
-                    SearchCharmInactive.Margin = searchDas;
-
-                    var shareDas = new Thickness(scrollShare - 1, 14, 12, -66);
-                    ShareCharmInactive.Margin = shareDas;
-
-                    var winDas = new Thickness(scrollWin, -50, 14, 4);
-                    NoColor.Margin = winDas;
-
-                    var deviceDas = new Thickness(scrollDevices, -38, 12, -99);
-                    DevicesCharmInactive.Margin = deviceDas;
-
-                    var settingsDas = new Thickness(scrollSettings, 14, 12, -99);
-                    SettingsCharmInactive.Margin = settingsDas;
-
-                    var searchDas2 = new Thickness(scrollSearch, -11, 12, -66);
-                    SearchCharm.Margin = searchDas2;
-
-                    var shareDas2 = new Thickness(scrollShare - 1, 14, 12, -66);
-                    ShareCharm.Margin = shareDas2;
-
-                    var winDas2 = new Thickness(scrollWin, 11, 12, 4);
-                    MetroColor.Margin = winDas2;
-
-                    var deviceDas2 = new Thickness(scrollDevices, 13, 12, -10);
-                    DevicesCharm.Margin = deviceDas2;
-
-                    var settingsDas2 = new Thickness(scrollSettings, 14, 12, -99);
-                    SettingsCharm.Margin = settingsDas2;
-
-                    var searchDas3 = new Thickness(textSearch + 1, 38, 13.141, -44.89);
-                    SearchText.Margin = searchDas3;
-
-                    var shareDas3 = new Thickness(textShare - 0.005, 59, 12, 0);
-                    ShareText.Margin = shareDas3;
-
-                    var winDas3 = new Thickness(textWin + 0.003, -15, 12, 0);
-                    WinText.Margin = winDas3;
-
-                    var deviceDas3 = new Thickness(textDevices, 7, 12, 0);
-                    DevicesText.Margin = deviceDas3;
-
-                    var settingsDas3 = new Thickness(textSettings - 0.006, 59, 12, -63);
-                    SettingsText.Margin = settingsDas3;
-
-                    var searchDas4 = new Thickness(scrollSearch, -25, 0, 0);
-                    SearchHover.Margin = searchDas4;
-
-                    var shareDas4 = new Thickness(scrollShare, 0, 0, -25);
-                    ShareHover.Margin = shareDas4;
-
-                    var winDas4 = new Thickness(scrollWin, 25, 0, -50);
-                    WinHover.Margin = winDas4;
-
-                    var deviceDas4 = new Thickness(scrollDevices, 50, 0, -75);
-                    DevicesHover.Margin = deviceDas4;
-
-                    var settingsDas4 = new Thickness(scrollSettings, 75, 0, -100);
-                    SettingsHover.Margin = settingsDas4;
                 }
+
+                if (activeScreen > 0)
+                {
+                    if (charmsAppear == true && numVal < screenwidth - 116 && IHOb < 0.000 && escKey == false && keyboardShortcut == false && outofTime == false && ignoreMouseIn == false && forceClose == false)
+                    {
+                        IHOb = 1.0;
+                        SearchCharmInactive.Opacity = IHOb;
+                        ShareCharmInactive.Opacity = IHOb;
+                        NoColor.Opacity = IHOb;
+                        DevicesCharmInactive.Opacity = IHOb;
+                        SettingsCharmInactive.Opacity = IHOb;
+                        this.Opacity = 0.000;
+                        charmsAppear = false;
+                        charmsTimer = 0;
+                    }
+                }
+
+                if (IHOb < 0.000 && keyboardShortcut == false)
+                {
+                    SearchDown.Visibility = Visibility.Hidden;
+                    ShareDown.Visibility = Visibility.Hidden;
+                    WinDown.Visibility = Visibility.Hidden;
+                    DevicesDown.Visibility = Visibility.Hidden;
+                    SettingsDown.Visibility = Visibility.Hidden;
+
+                    SearchText.Visibility = Visibility.Hidden;
+                    ShareText.Visibility = Visibility.Hidden;
+                    WinText.Visibility = Visibility.Hidden;
+                    DevicesText.Visibility = Visibility.Hidden;
+                    SettingsText.Visibility = Visibility.Hidden;
+
+                    SearchCharm.Visibility = Visibility.Hidden;
+                    ShareCharm.Visibility = Visibility.Hidden;
+                    MetroColor.Visibility = Visibility.Hidden;
+                    DevicesCharm.Visibility = Visibility.Hidden;
+                    SettingsCharm.Visibility = Visibility.Hidden;
+                    ignoreMouseIn = false;
+                    var brush = (Brush)converter.ConvertFromString("#00111111");
+                    Background = brush;
+                    swipeIn = false;
+                    charmsUse = false;
+                    charmsAppear = false;
+                    charmsTimer = 0;
+                    charmsWait = 0;
+                    swipeIn = false;
+                    keyboardShortcut = false;
+                    pokeCharms = false;
+                    CharmsClock.Opacity = 0.000;
+                    CharmsClock.Hide();
+                }
+
+                if (useAnimations == true)
+                {
+                    if (charmsAppear == true && pokeCharms == true && keyboardShortcut == false && IHOb < 1.0 && charmsUse == false && ignoreMouseIn == false && forceClose == false)
+                    {
+                        IHOb += 0.10;
+                        SearchCharmInactive.Opacity = IHOb;
+                        ShareCharmInactive.Opacity = IHOb;
+                        NoColor.Opacity = IHOb;
+                        DevicesCharmInactive.Opacity = IHOb;
+                        SettingsCharmInactive.Opacity = IHOb;
+                    }
+                }
+
+                if (useAnimations == false)
+                {
+                    if (charmsAppear == true && pokeCharms == true && keyboardShortcut == false && IHOb < 1.0 && charmsUse == false && ignoreMouseIn == false && forceClose == false)
+                    {
+                        IHOb = 1.00;
+                        SearchCharmInactive.Opacity = IHOb;
+                        ShareCharmInactive.Opacity = IHOb;
+                        NoColor.Opacity = IHOb;
+                        DevicesCharmInactive.Opacity = IHOb;
+                        SettingsCharmInactive.Opacity = IHOb;
+                    }
+                }
+
+                if (charmsUse == false && IHOb < 0.000)
+                {
+                    IHOb = 0.000;
+                    ignoreMouseIn = false;
+                    escKey = false;
+                }
+
+                if (useAnimations == true)
+                {
+                    if (charmsAppear == true && IHOb < 1.1 && ignoreMouseIn == false)
+                    {
+                        IHOb += 0.05;
+                        this.Opacity = IHOb;
+                        CharmsClock.Opacity = IHOb;
+                    }
+                }
+
+                if (useAnimations == false)
+                {
+                    if (charmsAppear == true && IHOb < 1.1 && ignoreMouseIn == false)
+                    {
+                        IHOb = 1.00;
+                        this.Opacity = IHOb;
+                        CharmsClock.Opacity = IHOb;
+                    }
+                }
+
+                if (charmsWait > charmsExpire && charmsUse == false && charmsReturn == dasBoot)
+                {
+                    outofTime = true;
+                    preventReload = false;
+                }
+
+                if (charmsWait < charmsExpire && numVal < mainwidth - 116)
+                {
+                    outofTime = false;
+                }
+
+                if (this.Opacity < 0.1)
+                {
+                    charmsWait = 0;
+                }
+
+                if (CharmBG.Opacity < 1.1 && charmsUse == true && charmsAppear == true && useAnimations == true && outofTime == false && forceClose == false)
+                {
+                    if (keyboardShortcut == false)
+                    {
+                        WinCharm.Opacity += 0.1;
+                        MetroColor.Opacity += 0.1;
+                        FadeBlocker.Opacity += 0.1;
+                        CharmBG.Opacity += 0.1;
+                    }
+                }
+
+                if (CharmBG.Opacity < 1.1 && charmsUse == true && charmsAppear == true && useAnimations == false && outofTime == false && forceClose == false)
+                {
+                    if (keyboardShortcut == false)
+                    {
+                        WinCharm.Opacity = 1.00;
+                        MetroColor.Opacity = 1.00;
+                        FadeBlocker.Opacity = 1.00;
+                        CharmBG.Opacity = 1.00;
+                    }
+                }
+
+                NoColor.Margin = new Thickness(scrollWin, -50, 14, 4);
+                SearchCharmInactive.Margin = new Thickness(scrollSearch, -11, 12, -66);
+                ShareCharmInactive.Margin = new Thickness(scrollShare - 1, 14, 12, -66);
+                DevicesCharmInactive.Margin = new Thickness(scrollDevices, -38, 12, -99);
+                SettingsCharmInactive.Margin = new Thickness(scrollSettings, 14, 12, -99);
+
+                SearchCharm.Margin = new Thickness(scrollSearch, -11, 12, -66);
+                ShareCharm.Margin = new Thickness(scrollShare - 1, 14, 12, -66);
+                MetroColor.Margin = new Thickness(scrollWin, 11, 12, 4);
+                DevicesCharm.Margin = new Thickness(scrollDevices, 13, 12, -10);
+                SettingsCharm.Margin = new Thickness(scrollSettings, 14, 12, -99);
+
+                SearchText.Margin = new Thickness(textSearch + 1, 38, 13.141, -44.89);
+                ShareText.Margin = new Thickness(textShare - 0.005, 59, 12, 0);
+                WinText.Margin = new Thickness(textWin + 0.003, -15, 12, 0);
+                DevicesText.Margin = new Thickness(textDevices, 7, 12, 0);
+                SettingsText.Margin = new Thickness(textSettings - 0.006, 59, 12, -63);
+
+                SearchHover.Margin = new Thickness(scrollSearch, -25, 0, 0);
+                ShareHover.Margin = new Thickness(scrollShare, 0, 0, -25);
+                WinHover.Margin = new Thickness(scrollWin, 25, 0, -50);
+                DevicesHover.Margin = new Thickness(scrollDevices, 50, 0, -75);
+                SettingsHover.Margin = new Thickness(scrollSettings, 75, 0, -100);
 
                 if (this.IsActive == true && charmsUse == true)
                 {
 
-                    if (Keyboard.IsKeyUp(Key.Up) == true && Keyboard.IsKeyUp(Key.Down) == true && swipeIn == false)
+                    if (Keyboard.IsKeyUp(Key.Up) && Keyboard.IsKeyUp(Key.Down) && !swipeIn)
                     {
                         waitTimer = 0;
                         keyboardTimer = 0;
                     }
 
-                    if (Keyboard.IsKeyDown(Key.Up) && swipeIn == false || Keyboard.IsKeyDown(Key.Down) && swipeIn == false || Keyboard.IsKeyDown(Key.Tab) && swipeIn == false)
+                    if (Keyboard.IsKeyDown(Key.Up) && !swipeIn ||
+                        Keyboard.IsKeyDown(Key.Down) && !swipeIn ||
+                        Keyboard.IsKeyDown(Key.Tab) && !swipeIn)
                     {
                         if (activeIcon == 6)
                         {
@@ -2688,7 +2568,8 @@ private string GetActiveWindowTitle()
                         }
                     }
 
-                    if (Keyboard.IsKeyDown(Key.Up) && swipeIn == false && keyboardTimer < 1 && waitTimer < 10)
+                    if (Keyboard.IsKeyDown(Key.Up) && !swipeIn && keyboardTimer < 1 &&
+                        (waitTimer < 10) || (waitTimer > 40 && charmsUse))
                     {
                         if (activeIcon != 0)
                         {
@@ -2701,75 +2582,31 @@ private string GetActiveWindowTitle()
                         keyboardShortcut = true;
                         mouseIn = false;
 
-                        //Search highlighted
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon == 0)
+                        if (!mouseIn)
                         {
-                            SearchHover.Visibility = Visibility.Visible;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon != 0)
-                        {
-                            SearchHover.Visibility = Visibility.Hidden;
-                        }
-
-                        //Share highlighted
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon == 1)
-                        {
-                            ShareHover.Visibility = Visibility.Visible;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon != 1)
-                        {
-                            ShareHover.Visibility = Visibility.Hidden;
-                        }
-
-                        //Start highlighted
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon == 2)
-                        {
-                            WinCharmUse = true;
-                            WinHover.Visibility = Visibility.Visible;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon != 2)
-                        {
-                            WinCharmUse = false;
-                            WinHover.Visibility = Visibility.Hidden;
-                        }
-
-                        //Devices highlighted
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon == 3)
-                        {
-                            DevicesHover.Visibility = Visibility.Visible;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon != 3)
-                        {
-                            DevicesHover.Visibility = Visibility.Hidden;
-                        }
-
-                        //Settings highlighted
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon == 4)
-                        {
-                            SettingsHover.Visibility = Visibility.Visible;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon != 4)
-                        {
-                            SettingsHover.Visibility = Visibility.Hidden;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == false)
-                        {
-                            SearchHover.Visibility = Visibility.Hidden;
-                            ShareHover.Visibility = Visibility.Hidden;
-                            WinCharmUse = false;
-                            WinHover.Visibility = Visibility.Hidden;
-                            DevicesHover.Visibility = Visibility.Hidden;
-                            SettingsHover.Visibility = Visibility.Hidden;
+                            if (keyboardShortcut)
+                            {
+                                SearchHover.Visibility = activeIcon == 0 ? Visibility.Visible : Visibility.Hidden;
+                                ShareHover.Visibility = activeIcon == 1 ? Visibility.Visible : Visibility.Hidden;
+                                WinCharmUse = activeIcon == 2;
+                                WinHover.Visibility = activeIcon == 2 ? Visibility.Visible : Visibility.Hidden;
+                                DevicesHover.Visibility = activeIcon == 3 ? Visibility.Visible : Visibility.Hidden;
+                                SettingsHover.Visibility = activeIcon == 4 ? Visibility.Visible : Visibility.Hidden;
+                            }
+                            else
+                            {
+                                SearchHover.Visibility = Visibility.Hidden;
+                                ShareHover.Visibility = Visibility.Hidden;
+                                WinCharmUse = false;
+                                WinHover.Visibility = Visibility.Hidden;
+                                DevicesHover.Visibility = Visibility.Hidden;
+                                SettingsHover.Visibility = Visibility.Hidden;
+                            }
                         }
                     }
 
-                    if (Keyboard.IsKeyDown(Key.Down) && swipeIn == false && keyboardTimer < 1 && waitTimer < 10 && charmsUse == true || Keyboard.IsKeyDown(Key.Tab) && swipeIn == false && keyboardTimer < 1 && waitTimer < 10 && charmsUse == true)
+                    if ((Keyboard.IsKeyDown(Key.Down) || Keyboard.IsKeyDown(Key.Tab)) &&
+                        !swipeIn && keyboardTimer < 1 && ((waitTimer < 10 && charmsUse) || waitTimer > 40))
                     {
 
                         if (activeIcon != 4)
@@ -2783,239 +2620,32 @@ private string GetActiveWindowTitle()
                         keyboardShortcut = true;
                         mouseIn = false;
 
-                        //Search highlighted
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon == 0)
+                        if (!mouseIn)
                         {
-                            SearchHover.Visibility = Visibility.Visible;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon != 0)
-                        {
-                            SearchHover.Visibility = Visibility.Hidden;
-                        }
-
-                        //Share highlighted
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon == 1)
-                        {
-                            ShareHover.Visibility = Visibility.Visible;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon != 1)
-                        {
-                            ShareHover.Visibility = Visibility.Hidden;
-                        }
-
-                        //Start highlighted
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon == 2)
-                        {
-                            WinCharmUse = true;
-                            WinHover.Visibility = Visibility.Visible;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon != 2)
-                        {
-                            WinCharmUse = false;
-                            WinHover.Visibility = Visibility.Hidden;
-                        }
-
-                        //Devices highlighted
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon == 3)
-                        {
-                            DevicesHover.Visibility = Visibility.Visible;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon != 3)
-                        {
-                            DevicesHover.Visibility = Visibility.Hidden;
-                        }
-
-                        //Settings highlighted
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon == 4)
-                        {
-                            SettingsHover.Visibility = Visibility.Visible;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon != 4)
-                        {
-                            SettingsHover.Visibility = Visibility.Hidden;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == false)
-                        {
-                            SearchHover.Visibility = Visibility.Hidden;
-                            ShareHover.Visibility = Visibility.Hidden;
-                            WinCharmUse = false;
-                            WinHover.Visibility = Visibility.Hidden;
-                            DevicesHover.Visibility = Visibility.Hidden;
-                            SettingsHover.Visibility = Visibility.Hidden;
+                            if (keyboardShortcut)
+                            {
+                                SearchHover.Visibility = activeIcon == 0 ? Visibility.Visible : Visibility.Hidden;
+                                ShareHover.Visibility = activeIcon == 1 ? Visibility.Visible : Visibility.Hidden;
+                                WinCharmUse = activeIcon == 2;
+                                WinHover.Visibility = activeIcon == 2 ? Visibility.Visible : Visibility.Hidden;
+                                DevicesHover.Visibility = activeIcon == 3 ? Visibility.Visible : Visibility.Hidden;
+                                SettingsHover.Visibility = activeIcon == 4 ? Visibility.Visible : Visibility.Hidden;
+                            }
+                            else
+                            {
+                                SearchHover.Visibility = Visibility.Hidden;
+                                ShareHover.Visibility = Visibility.Hidden;
+                                WinCharmUse = false;
+                                WinHover.Visibility = Visibility.Hidden;
+                                DevicesHover.Visibility = Visibility.Hidden;
+                                SettingsHover.Visibility = Visibility.Hidden;
+                            }
                         }
                     }
 
-                    if (Keyboard.IsKeyDown(Key.Up) && swipeIn == false && keyboardTimer < 1 && waitTimer > 40 && charmsUse == true)
-                    {
-                        if (activeIcon != 0)
-                        {
-                            activeIcon -= 1;
-                        }
-                        else
-                        {
-                            activeIcon = 4;
-                        }
-                        keyboardShortcut = true;
-                        mouseIn = false;
-
-                        //Search highlighted
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon == 0)
-                        {
-                            SearchHover.Visibility = Visibility.Visible;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon != 0)
-                        {
-                            SearchHover.Visibility = Visibility.Hidden;
-                        }
-
-                        //Share highlighted
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon == 1)
-                        {
-                            ShareHover.Visibility = Visibility.Visible;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon != 1)
-                        {
-                            ShareHover.Visibility = Visibility.Hidden;
-                        }
-
-                        //Start highlighted
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon == 2)
-                        {
-                            WinCharmUse = true;
-                            WinHover.Visibility = Visibility.Visible;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon != 2)
-                        {
-                            WinCharmUse = false;
-                            WinHover.Visibility = Visibility.Hidden;
-                        }
-
-                        //Devices highlighted
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon == 3)
-                        {
-                            DevicesHover.Visibility = Visibility.Visible;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon != 3)
-                        {
-                            DevicesHover.Visibility = Visibility.Hidden;
-                        }
-
-                        //Settings highlighted
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon == 4)
-                        {
-                            SettingsHover.Visibility = Visibility.Visible;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon != 4)
-                        {
-                            SettingsHover.Visibility = Visibility.Hidden;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == false)
-                        {
-                            SearchHover.Visibility = Visibility.Hidden;
-                            ShareHover.Visibility = Visibility.Hidden;
-                            WinCharmUse = false;
-                            WinHover.Visibility = Visibility.Hidden;
-                            DevicesHover.Visibility = Visibility.Hidden;
-                            SettingsHover.Visibility = Visibility.Hidden;
-                        }
-                    }
-
-                    if (Keyboard.IsKeyDown(Key.Down) && swipeIn == false && keyboardTimer < 1 && waitTimer > 40 || Keyboard.IsKeyDown(Key.Tab) && swipeIn == false && keyboardTimer < 1 && waitTimer > 40)
-                    {
-
-                        if (activeIcon != 4)
-                        {
-                            activeIcon += 1;
-                        }
-                        else
-                        {
-                            activeIcon = 0;
-                        }
-                        keyboardShortcut = true;
-                        mouseIn = false;
-
-                        //Search highlighted
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon == 0)
-                        {
-                            SearchHover.Visibility = Visibility.Visible;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon != 0)
-                        {
-                            SearchHover.Visibility = Visibility.Hidden;
-                        }
-
-                        //Share highlighted
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon == 1)
-                        {
-                            ShareHover.Visibility = Visibility.Visible;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon != 1)
-                        {
-                            ShareHover.Visibility = Visibility.Hidden;
-                        }
-
-                        //Start highlighted
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon == 2)
-                        {
-                            WinCharmUse = true;
-                            WinHover.Visibility = Visibility.Visible;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon != 2)
-                        {
-                            WinCharmUse = false;
-                            WinHover.Visibility = Visibility.Hidden;
-                        }
-
-                        //Devices highlighted
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon == 3)
-                        {
-                            DevicesHover.Visibility = Visibility.Visible;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon != 3)
-                        {
-                            DevicesHover.Visibility = Visibility.Hidden;
-                        }
-
-                        //Settings highlighted
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon == 4)
-                        {
-                            SettingsHover.Visibility = Visibility.Visible;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == true && activeIcon != 4)
-                        {
-                            SettingsHover.Visibility = Visibility.Hidden;
-                        }
-
-                        if (mouseIn == false && keyboardShortcut == false)
-                        {
-                            SearchHover.Visibility = Visibility.Hidden;
-                            ShareHover.Visibility = Visibility.Hidden;
-                            WinCharmUse = false;
-                            WinHover.Visibility = Visibility.Hidden;
-                            DevicesHover.Visibility = Visibility.Hidden;
-                            SettingsHover.Visibility = Visibility.Hidden;
-                        }
-                    }
                     if (charmsUse == true)
                     {
-                        if (Keyboard.IsKeyDown(Key.Enter) && keyboardShortcut == true || Keyboard.IsKeyDown(Key.Space) && keyboardShortcut == true)
+                        if ((Keyboard.IsKeyDown(Key.Enter) || Keyboard.IsKeyDown(Key.Space)) && keyboardShortcut)
                         {
                             if (activeIcon == 0)
                             {
@@ -3035,7 +2665,7 @@ private string GetActiveWindowTitle()
                                 charmsActivate = false;
                                 pokeCharms = false;
 
-                                if (useAnimations == false)
+                                if (!useAnimations)
                                 {
                                     this.Opacity = 0.000;
                                     CharmsClock.Opacity = 0.000;
@@ -3066,24 +2696,16 @@ private string GetActiveWindowTitle()
                                 SearchCharmInactive.Visibility = Visibility.Visible;
                                 ShareCharmInactive.Visibility = Visibility.Visible;
                                 NoColor.Visibility = Visibility.Visible;
-                                if (vn4.Content != "0" && vn4.Content != "-1")
-                                {
-                                    DevicesCharmInactive.Visibility = Visibility.Hidden;
-                                }
-                                else
-                                {
-                                    DevicesCharmInactive.Visibility = Visibility.Visible;
-                                }
-                                if (vn3.Content != "0" && vn3.Content != "-1")
-                                {
-                                    SettingsCharmInactive.Visibility = Visibility.Hidden;
-                                }
-                                else
-                                {
-                                    SettingsCharmInactive.Visibility = Visibility.Visible;
-                                }
+
+                                DevicesCharmInactive.Visibility = (vn4.Content != "0" && vn4.Content != "-1")
+                                    ? Visibility.Hidden : Visibility.Visible;
+
+                                SettingsCharmInactive.Visibility = (vn3.Content != "0" && vn3.Content != "-1")
+                                    ? Visibility.Hidden : Visibility.Visible;
                             }
 
+                            // TODO
+                            // WRITE FROM SCRATCH PLS DAMN YOU
                             if (activeIcon == 1)
                             {
                                 // Retrieve the window handle (HWND) of the current WinUI 3 window.
@@ -3142,23 +2764,6 @@ private string GetActiveWindowTitle()
                                 ShareCharm.Visibility = Visibility.Hidden;
                                 MetroColor.Visibility = Visibility.Hidden;
                                 DevicesCharm.Visibility = Visibility.Hidden;
-                                if (vn3.Content != "0" && vn3.Content != "-1")
-                                {
-                                    SettingsCharmInactive.Visibility = Visibility.Hidden;
-                                }
-                                else
-                                {
-                                    SettingsCharmInactive.Visibility = Visibility.Visible;
-                                }
-
-                                if (vn4.Content != "0" && vn4.Content != "-1")
-                                {
-                                    DevicesCharmInactive.Visibility = Visibility.Hidden;
-                                }
-                                else
-                                {
-                                    DevicesCharmInactive.Visibility = Visibility.Visible;
-                                }
                                 ShareCharmInactive.Visibility = Visibility.Visible;
                                 NoColor.Visibility = Visibility.Visible;
                                 DevicesCharmInactive.Visibility = Visibility.Visible;
@@ -3265,6 +2870,7 @@ private string GetActiveWindowTitle()
                                 ShareCharm.Visibility = Visibility.Hidden;
                                 MetroColor.Visibility = Visibility.Hidden;
                                 DevicesCharm.Visibility = Visibility.Hidden;
+
                                 if (vn3.Content != "0" && vn3.Content != "-1")
                                 {
                                     SettingsCharmInactive.Visibility = Visibility.Hidden;
@@ -4523,20 +4129,20 @@ private string GetActiveWindowTitle()
                     SettingsText.Foreground = SystemColors.WindowTextBrush;
                 }
 
-//fixes for the Windows shell
+                //fixes for the Windows shell
 
                 if (this.IsActive == false && charmsUse == true && isGui == true)
-                    {
-                                byte escKey = (byte)KeyInterop.VirtualKeyFromKey(Key.Escape);
-                                const uint KEYEVENTF_EXTENDEDKEY = 0x0001;
-                                const uint KEYEVENTF_KEYUP = 0x0002;
-                                _ = keybd_event(escKey, 0, KEYEVENTF_EXTENDEDKEY, 0);
-                                _ = keybd_event(escKey, 0, KEYEVENTF_KEYUP, 0);
+                {
+                    byte escKey = (byte)KeyInterop.VirtualKeyFromKey(Key.Escape);
+                    const uint KEYEVENTF_EXTENDEDKEY = 0x0001;
+                    const uint KEYEVENTF_KEYUP = 0x0002;
+                    _ = keybd_event(escKey, 0, KEYEVENTF_EXTENDEDKEY, 0);
+                    _ = keybd_event(escKey, 0, KEYEVENTF_KEYUP, 0);
 
-        IntPtr lHwnd = FindWindow("Shell_TrayWnd", null);
-        SendMessage(lHwnd, WM_COMMAND, (IntPtr)MIN_ALL, IntPtr.Zero);  
-        System.Threading.Thread.Sleep(700); //Hopefully, this will fix the bug.
-        SendMessage(lHwnd, WM_COMMAND, (IntPtr)MIN_ALL_UNDO, IntPtr.Zero); 
+                    IntPtr lHwnd = FindWindow("Shell_TrayWnd", null);
+                    SendMessage(lHwnd, WM_COMMAND, (IntPtr)MIN_ALL, IntPtr.Zero);
+                    System.Threading.Thread.Sleep(700); //Hopefully, this will fix the bug.
+                    SendMessage(lHwnd, WM_COMMAND, (IntPtr)MIN_ALL_UNDO, IntPtr.Zero);
 
                     SetForegroundWindow(Int32.Parse(ActiveCharm.Content.ToString()));
                     this.Focus();

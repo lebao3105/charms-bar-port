@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net7.0-windows10.0.17763.0</TargetFramework>
+		<TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
 		<UseWPF>true</UseWPF>
 		<Title>Charms Bar Port</Title>
 		<Company>Jayden Montoya</Company>
@@ -10,6 +10,8 @@
 		<ErrorReport>none</ErrorReport>
 		<ApplicationIcon>Assets\Images\Icon1.ico</ApplicationIcon>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<Description>A clone of Windows 8.x's Charm Bar for newer Windows</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -51,8 +53,8 @@
 		<None Remove="Assets\Images\DevicesDark.png" />
 		<None Remove="Assets\Images\DevicesInactive.png" />
 		<None Remove="Assets\Images\Devices.png" />
-		<None Remove="Assets\Images\fader light.png" />
 		<None Remove="Assets\Images\fader.png" />
+		<None Remove="Assets\Images\faderLight.png" />
 		<None Remove="Assets\Images\Icon103Dark.png" />
 		<None Remove="Assets\Images\Icon106Dark.png" />
 		<None Remove="Assets\Images\Icon109.png" />
@@ -179,7 +181,7 @@
 		<Resource Include="Assets\Images\DevicesDark.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
-		<Resource Include="Assets\Images\fader light.png">
+		<Resource Include="Assets\Images\faderLight.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Resource>
 		<Resource Include="Assets\Images\Icon103Dark.png">
@@ -345,6 +347,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Include="..\..\README.md">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		</None>
 		<None Include="..\.editorconfig" Link=".editorconfig" />
 	</ItemGroup>
 
@@ -355,10 +361,6 @@
 		<None Update="Assets\Images\Icon136.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Properties\" />
 	</ItemGroup>
 
 
@@ -385,6 +387,10 @@
 			<AutoGen>True</AutoGen>
 			<DependentUpon>Settings.settings</DependentUpon>
 		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Properties\" />
 	</ItemGroup>
 
 </Project>
