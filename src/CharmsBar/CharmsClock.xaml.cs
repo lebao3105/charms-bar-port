@@ -76,7 +76,18 @@ namespace CharmsBarPort
 
         private void _initTimer()
         {
-            System.Windows.Forms.Timer t = new();
+            if (SystemParameters.HighContrast)
+            {
+                HasInternet.Source = new BitmapImage(new Uri(@"/Assets/Images/Icon151Dark.png", UriKind.Relative));
+                WeakInternet.Source = new BitmapImage(new Uri(@"/Assets/Images/Icon133Dark.png", UriKind.Relative));
+            }
+            else
+            {
+                HasInternet.Source = new BitmapImage(new Uri(@"/Assets/Images/Icon151.png", UriKind.Relative));
+                WeakInternet.Source = new BitmapImage(new Uri(@"/Assets/Images/Icon133.png", UriKind.Relative));
+            }
+
+            System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
             t.Interval = 1;
             t.Tick += OnTimedEvent;
             t.Enabled = true;
@@ -87,12 +98,12 @@ namespace CharmsBarPort
         {
             dispatcher.BeginInvoke((Action)(() =>
             {
-                // Read settings.
                 try
                 {
                     RegistryKey? key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", false);
                     if (key != null)
                     {
+                        // get value 
                         string noTransparency = key.GetValue("EnableTransparency", -1, RegistryValueOptions.None).ToString(); //this is not in Windows 8.1, but used to remove transparency
                         useTransparency = (noTransparency == "-1") || (noTransparency == "1");
                         key.Close();
@@ -101,6 +112,7 @@ namespace CharmsBarPort
                     RegistryKey? key2 = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ImmersiveShell\\EdgeUi", false);
                     if (key2 != null)
                     {
+                        // get value 
                         string noClock = key2.GetValue("DisableCharmsClock", -1, RegistryValueOptions.None).ToString(); //this is not in Windows 8.1, but used to remove the Charms Clock
 
                         noClocks.Content = noClock == "-1" ? "0" : noClock;
@@ -112,17 +124,15 @@ namespace CharmsBarPort
                     }
                 }
 
-                catch (Exception ex)
+                catch (Exception ex)  //just for demonstration...it's always best to handle specific exceptions
                 {
-                    // react appropriately
-                    useTransparency = false;
-                    noClocks.Content = "0";
+                    //react appropriately
                 }
 
-                if (noClocks.Content == "0")
+                if (noClocks.Content == "-1" || noClocks.Content == "0")
                 {
 
-                    if (!SystemParameters.HighContrast)
+                    if (SystemParameters.HighContrast == false)
                     {
                         isDark = "";
                     }
@@ -139,7 +149,6 @@ namespace CharmsBarPort
 
                     // Time & date format strings
                     // https://www.freepascal.org/docs-html/rtl/sysutils/formatchars.html
-                    // (unsure if all works)
 
                     var now = DateTime.Now;
 
@@ -154,17 +163,17 @@ namespace CharmsBarPort
                     // This follows 12 hours clock.
                     // For 24 hours clock, use now.Hours.ToString() or HH format.
                     // TODO.
-                    Hour_Label.Content = now.ToString("h ");
-                    Mins_Label.Content = now.Month.ToString();
+                    Clocks.Content = now.ToString("h ");
+                    Clocked.Content = now.Month.ToString();
 
-                    if (!SystemParameters.HighContrast)
+                    if (SystemParameters.HighContrast == false)
                     {
                         ClockBorder.Visibility = Visibility.Hidden;
                         BrushConverter converter = new();
 
                         this.Background = (Brush)converter.ConvertFromString(useTransparency ? "#f0111111" : "#111111");
-                        Week.Foreground = Hour_Label.Foreground = ClockSeparator.Foreground =
-                            Mins_Label.Foreground = Date.Foreground =
+                        Week.Foreground = Clocks.Foreground = ClockLines.Foreground =
+                            Clocked.Foreground = Date.Foreground =
                             (Brush)converter.ConvertFromString("#ffffff");
                     }
 
@@ -173,17 +182,15 @@ namespace CharmsBarPort
                         this.Background = SystemColors.WindowBrush;
                         ClockBorder.Visibility = Visibility.Visible;
 
-                        Week.Foreground = Hour_Label.Foreground = ClockSeparator.Foreground =
-                            Mins_Label.Foreground = Date.Foreground = SystemColors.WindowTextBrush;
+                        Week.Foreground = Clocks.Foreground = ClockLines.Foreground =
+                            Clocked.Foreground = Date.Foreground = SystemColors.WindowTextBrush;
                     }
 
                     while (!CheckSignal.IsBusy && this.IsVisible)
                     {
                         CheckSignal.RunWorkerAsync();
                     }
-
                     CheckBatteryStatus();
-                    
                     ClockBorder.BorderBrush = SystemColors.WindowTextBrush;
                     ClockBorder.Background = SystemColors.WindowBrush;
                     
@@ -191,29 +198,53 @@ namespace CharmsBarPort
                     var localKey2 = localKey.OpenSubKey("SYSTEM\\ControlSet001\\Control\\RadioManagement\\SystemRadioState");
                     var isAirPlaneOn = localKey2.GetValue("", "").ToString();
                     
-                    var HasNetworking = IsConnected();
-                    var UsingLocalNetworking = IsLocal();
-                    var IsNetworkingWeak = IsWeak();
+
+                    var nw = IsConnected();
+                    var nw2 = IsLocal();
+                    var nw3 = IsWeak();
+
+                    NoDrivers.Source = new BitmapImage(new Uri(@$"/Assets/Images/Icon103{isDark}.png", UriKind.Relative));
+                    NoInternet.Source = new BitmapImage(new Uri(@$"/Assets/Images/Icon115{isDark}.png", UriKind.Relative));
+                    Ethernet.Source = new BitmapImage(new Uri($@"/Assets/Images/Icon106{isDark}.png", UriKind.Relative));
+                    NoInternetFound.Source = new BitmapImage(new Uri($@"/Assets/Images/Icon112{isDark}.png", UriKind.Relative));
+                    IsCharging.Source = new BitmapImage(new Uri($@"/Assets/Images/BatteryFullCharging{isDark}.png", UriKind.Relative));
+                    Airplane.Source = new BitmapImage(new Uri($@"/Assets/Images/Icon118{isDark}.png", UriKind.Relative));
 
                     // Configure whether to show stuff or not.
                     // By default all are hidden.
 
                     if (isEthernet.IndexOf("Ethernet") != -1)
                     {
-                        InternetDriver.Visibility = Visibility.Visible;
-                        InternetStrength.Visibility = Visibility.Hidden;
+                        NoDrivers.Visibility = Visibility.Hidden;
+                        NoInternet.Visibility = Visibility.Hidden;
+                        NoInternetFound.Visibility = Visibility.Hidden;
+                        Ethernet.Visibility = Visibility.Visible;
+                        HasInternet.Visibility = Visibility.Hidden;
+                        WeakInternet.Visibility = Visibility.Hidden;
+                        Airplane.Visibility = Visibility.Hidden;
                     }
 
                     if (hasDrivers.IndexOf("Thereisno") != -1)
                     {
-                        InternetDriver.Visibility = Visibility.Visible;
-                        InternetStrength.Visibility = Visibility.Hidden;
+                        NoDrivers.Visibility = Visibility.Visible;
+                        NoInternet.Visibility = Visibility.Hidden;
+                        NoInternetFound.Visibility = Visibility.Hidden;
+                        Ethernet.Visibility = Visibility.Hidden;
+                        HasInternet.Visibility = Visibility.Hidden;
+                        WeakInternet.Visibility = Visibility.Hidden;
+                        Airplane.Visibility = Visibility.Hidden;
                     }
                     else
                     {
-                        if (HasNetworking && !UsingLocalNetworking && !IsNetworkingWeak && isAirPlaneOn == "0")
+                        if (nw && !nw2 && !nw3 && isAirPlaneOn == "0")
                         {
-                            InternetStrength.Visibility = InternetDriver.Visibility = Visibility.Hidden;
+                            NoDrivers.Visibility = Visibility.Hidden;
+                            NoInternet.Visibility = Visibility.Hidden;
+                            NoInternetFound.Visibility = Visibility.Hidden;
+                            Ethernet.Visibility = Visibility.Hidden;
+                            HasInternet.Visibility = Visibility.Visible;
+                            WeakInternet.Visibility = Visibility.Hidden;
+                            Airplane.Visibility = Visibility.Hidden;
 
                             if (nw4.StartsWith("100") || nw4.StartsWith("9") || nw4.StartsWith("8"))
                             {
@@ -246,7 +277,7 @@ namespace CharmsBarPort
                             }
                         }
 
-                        if (HasNetworking && !UsingLocalNetworking && !IsNetworkingWeak && isAirPlaneOn == "1")
+                        if (nw && !nw2 && !nw3 && isAirPlaneOn == "1")
                         {
                             NoDrivers.Visibility = Visibility.Hidden;
                             NoInternet.Visibility = Visibility.Hidden;
@@ -257,7 +288,7 @@ namespace CharmsBarPort
                             Airplane.Visibility = Visibility.Visible;
                         }
 
-                        if (UsingLocalNetworking && !HasNetworking && !IsNetworkingWeak && isAirPlaneOn == "0")
+                        if (nw2 && !nw && !nw3 && isAirPlaneOn == "0")
                         {
                             NoDrivers.Visibility = Visibility.Hidden;
                             NoInternet.Visibility = Visibility.Hidden;
@@ -268,7 +299,7 @@ namespace CharmsBarPort
                             Airplane.Visibility = Visibility.Hidden;
                         }
 
-                        if (!HasNetworking && !UsingLocalNetworking && !IsNetworkingWeak && isAirPlaneOn == "0" && nw5 == "SoftwareOn")
+                        if (!nw && !nw2 && !nw3 && isAirPlaneOn == "0" && nw5 == "SoftwareOn")
                         {
                             NoDrivers.Visibility = Visibility.Hidden;
                             NoInternet.Visibility = Visibility.Visible;
@@ -279,7 +310,7 @@ namespace CharmsBarPort
                             Airplane.Visibility = Visibility.Hidden;
                         }
 
-                        if (!HasNetworking && !UsingLocalNetworking && !IsNetworkingWeak && isAirPlaneOn == "0" && nw5 == "SoftwareOff")
+                        if (!nw && !nw2 && !nw3 && isAirPlaneOn == "0" && nw5 == "SoftwareOff")
                         {
                             NoDrivers.Visibility = Visibility.Hidden;
                             NoInternet.Visibility = Visibility.Hidden;
@@ -290,7 +321,7 @@ namespace CharmsBarPort
                             Airplane.Visibility = Visibility.Hidden;
                         }
 
-                        if (!HasNetworking && !UsingLocalNetworking && !IsNetworkingWeak  && isAirPlaneOn == "0")
+                        if (!nw && !nw2 && !nw3  && isAirPlaneOn == "0")
                         {
                             NoDrivers.Visibility = Visibility.Hidden;
                             NoInternet.Visibility = Visibility.Hidden;
@@ -301,7 +332,7 @@ namespace CharmsBarPort
                             Airplane.Visibility = Visibility.Hidden;
                         }
 
-                        if (!HasNetworking && !HasNetworking && !IsNetworkingWeak && isAirPlaneOn == "1")
+                        if (!nw && !nw && !nw3 && isAirPlaneOn == "1")
                         {
                             NoDrivers.Visibility = Visibility.Hidden;
                             NoInternet.Visibility = Visibility.Hidden;
