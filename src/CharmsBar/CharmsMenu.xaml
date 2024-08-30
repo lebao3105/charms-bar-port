@@ -23,25 +23,25 @@
         </StackPanel>
 
         <StackPanel Name="SettingsBG" Grid.Row="1" Background="#111111" Margin="0,8,0,0" VerticalAlignment="Top" UseLayoutRounding="True" SnapsToDevicePixels="True" Height="60">
-            <Image Name="SettingsCharm" Source="/Assets/Images/Settings.png" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="24" Margin="15,0,0,0" Visibility="Visible" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
+            <Image Name="SettingsCharm" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="24" Margin="15,0,0,0" Visibility="Visible" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
         </StackPanel>
 
         <Label Name="SettingsText" Content="Settings" Foreground="#A0A0A0" FontFamily="Segoe UI Emoji" FontSize="15.2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="47,5,0,0" Visibility="Visible" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
 
         <StackPanel Name="DevicesBG" Grid.Row="2" Background="#111111" Margin="0,48,0,0" VerticalAlignment="Top" UseLayoutRounding="True" SnapsToDevicePixels="True" Height="60">
-            <Image Name="DevicesCharm" Source="/Assets/Images/Devices.png" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="24" Margin="15,0,0,0" Visibility="Visible" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
+            <Image Name="DevicesCharm" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="24" Margin="15,0,0,0" Visibility="Visible" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
         </StackPanel>
 
         <Label Name="DevicesText" Content="Devices" Foreground="#A0A0A0" FontFamily="Segoe UI Emoji" FontSize="15.2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="47,45,0,0" Visibility="Visible" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
 
         <StackPanel Name="ShareBG" Grid.Row="3" Background="#111111" Margin="0,88,0,0" VerticalAlignment="Top" UseLayoutRounding="True" SnapsToDevicePixels="True" Height="60">
-            <Image Name="ShareCharm" Source="/Assets/Images/Share.png" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="24" Margin="15,0,0,0" Visibility="Visible" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
+            <Image Name="ShareCharm" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="24" Margin="15,0,0,0" Visibility="Visible" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
         </StackPanel>
 
         <Label Name="ShareText" Content="Share" Foreground="#A0A0A0" FontFamily="Segoe UI Emoji" FontSize="15.2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="47,85,0,0" Visibility="Visible" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
 
         <StackPanel Name="SearchBG" Grid.Row="4" Background="#111111" Margin="0,128,0,0" VerticalAlignment="Top" UseLayoutRounding="True" SnapsToDevicePixels="True" Height="60">
-            <Image Name="SearchCharm" Source="/Assets/Images/Search.png" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="24" Margin="15,0,0,0" Visibility="Visible" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
+            <Image Name="SearchCharm" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="24" Margin="15,0,0,0" Visibility="Visible" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
         </StackPanel>
 
         <Label Name="SearchText" Content="Search" Foreground="#A0A0A0" FontFamily="Segoe UI Emoji" FontSize="15.2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="47,125,0,0" Visibility="Visible" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
@@ -49,7 +49,7 @@
 
         <StackPanel Name="WinBG" Grid.Row="5" Background="#111111" Margin="0,0,0,0" VerticalAlignment="Bottom" UseLayoutRounding="True" SnapsToDevicePixels="True" Height="60">
             <StackPanel Name="MetroColor" Background="{x:Static SystemParameters.WindowGlassBrush}" Margin="5,0,0,0" HorizontalAlignment="Left" SnapsToDevicePixels="True" Height="30" Width="39">
-                <Image Name="WinCharm" Source="/Assets/Images/Windows8.png" HorizontalAlignment="Left" VerticalAlignment="Top" Height="45" Width="45" Margin="0,-3,0,0" Visibility="Visible" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
+                <Image Name="WinCharm" HorizontalAlignment="Left" VerticalAlignment="Top" Height="45" Width="45" Margin="0,-3,0,0" Visibility="Visible" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
             </StackPanel>
         </StackPanel>
 

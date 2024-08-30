@@ -78,13 +78,13 @@ namespace CharmsBarPort
         {
             if (SystemParameters.HighContrast)
             {
-                HasInternet.Source = new BitmapImage(new Uri(@"/Assets/Images/Icon151Dark.png", UriKind.Relative));
-                WeakInternet.Source = new BitmapImage(new Uri(@"/Assets/Images/Icon133Dark.png", UriKind.Relative));
+                HasInternet.Source = new BitmapImage(new Uri(@"/Assets/Images/Networking/Icon151Dark.png", UriKind.Relative));
+                WeakInternet.Source = new BitmapImage(new Uri(@"/Assets/Images/Networking/Icon133Dark.png", UriKind.Relative));
             }
             else
             {
-                HasInternet.Source = new BitmapImage(new Uri(@"/Assets/Images/Icon151.png", UriKind.Relative));
-                WeakInternet.Source = new BitmapImage(new Uri(@"/Assets/Images/Icon133.png", UriKind.Relative));
+                HasInternet.Source = new BitmapImage(new Uri(@"/Assets/Images/Networking/Icon151.png", UriKind.Relative));
+                WeakInternet.Source = new BitmapImage(new Uri(@"/Assets/Images/Networking/Icon133.png", UriKind.Relative));
             }
 
             System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
@@ -104,7 +104,7 @@ namespace CharmsBarPort
                     if (key != null)
                     {
                         // get value 
-                        string noTransparency = key.GetValue("EnableTransparency", -1, RegistryValueOptions.None).ToString(); //this is not in Windows 8.1, but used to remove transparency
+                        string noTransparency = key.GetValue("EnableTransparency", -1, RegistryValueOptions.None).ToString();
                         useTransparency = (noTransparency == "-1") || (noTransparency == "1");
                         key.Close();
                     }
@@ -113,7 +113,7 @@ namespace CharmsBarPort
                     if (key2 != null)
                     {
                         // get value 
-                        string noClock = key2.GetValue("DisableCharmsClock", -1, RegistryValueOptions.None).ToString(); //this is not in Windows 8.1, but used to remove the Charms Clock
+                        string noClock = key2.GetValue("DisableCharmsClock", -1, RegistryValueOptions.None).ToString();
 
                         noClocks.Content = noClock == "-1" ? "0" : noClock;
                         key2.Close();
@@ -164,9 +164,9 @@ namespace CharmsBarPort
                     // For 24 hours clock, use now.Hours.ToString() or HH format.
                     // TODO.
                     Clocks.Content = now.ToString("h ");
-                    Clocked.Content = now.Month.ToString();
+                    Clocked.Content = now.Minute.ToString();
 
-                    if (SystemParameters.HighContrast == false)
+                    if (!SystemParameters.HighContrast)
                     {
                         ClockBorder.Visibility = Visibility.Hidden;
                         BrushConverter converter = new();
@@ -203,12 +203,12 @@ namespace CharmsBarPort
                     var nw2 = IsLocal();
                     var nw3 = IsWeak();
 
-                    NoDrivers.Source = new BitmapImage(new Uri(@$"/Assets/Images/Icon103{isDark}.png", UriKind.Relative));
-                    NoInternet.Source = new BitmapImage(new Uri(@$"/Assets/Images/Icon115{isDark}.png", UriKind.Relative));
-                    Ethernet.Source = new BitmapImage(new Uri($@"/Assets/Images/Icon106{isDark}.png", UriKind.Relative));
-                    NoInternetFound.Source = new BitmapImage(new Uri($@"/Assets/Images/Icon112{isDark}.png", UriKind.Relative));
-                    IsCharging.Source = new BitmapImage(new Uri($@"/Assets/Images/BatteryFullCharging{isDark}.png", UriKind.Relative));
-                    Airplane.Source = new BitmapImage(new Uri($@"/Assets/Images/Icon118{isDark}.png", UriKind.Relative));
+                    NoDrivers.Source = new BitmapImage(new Uri(@$"/Assets/Images/Networking/Icon103{isDark}.png", UriKind.Relative));
+                    NoInternet.Source = new BitmapImage(new Uri(@$"/Assets/Images/Networking/Icon115{isDark}.png", UriKind.Relative));
+                    Ethernet.Source = new BitmapImage(new Uri($@"/Assets/Images/Networking/Icon106{isDark}.png", UriKind.Relative));
+                    NoInternetFound.Source = new BitmapImage(new Uri($@"/Assets/Images/Networking/Icon112{isDark}.png", UriKind.Relative));
+                    IsCharging.Source = new BitmapImage(new Uri($@"/Assets/Images/Battery/BatteryFullCharging{isDark}.png", UriKind.Relative));
+                    Airplane.Source = new BitmapImage(new Uri($@"/Assets/Images/Networking/Icon118{isDark}.png", UriKind.Relative));
 
                     // Configure whether to show stuff or not.
                     // By default all are hidden.
@@ -248,32 +248,32 @@ namespace CharmsBarPort
 
                             if (nw4.StartsWith("100") || nw4.StartsWith("9") || nw4.StartsWith("8"))
                             {
-                                HasInternet.Source = new BitmapImage(new Uri(@$"/Assets/Images/Icon151{isDark}.png", UriKind.Relative));
-                                WeakInternet.Source = new BitmapImage(new Uri(@$"/Assets/Images/Icon133.png", UriKind.Relative));
+                                HasInternet.Source = new BitmapImage(new Uri(@$"/Assets/Images/Networking/Icon151{isDark}.png", UriKind.Relative));
+                                WeakInternet.Source = new BitmapImage(new Uri(@$"/Assets/Images/Networking/Icon133.png", UriKind.Relative));
                             }
 
                             if (nw4.StartsWith("6") || nw4.StartsWith("7"))
                             {
-                                HasInternet.Source = new BitmapImage(new Uri(@$"/Assets/Images/Icon148{isDark}.png", UriKind.Relative));
-                                WeakInternet.Source = new BitmapImage(new Uri(@$"/Assets/Images/Icon130{isDark}.png", UriKind.Relative));
+                                HasInternet.Source = new BitmapImage(new Uri(@$"/Assets/Images/Networking/Icon148{isDark}.png", UriKind.Relative));
+                                WeakInternet.Source = new BitmapImage(new Uri(@$"/Assets/Images/Networking/Icon130{isDark}.png", UriKind.Relative));
                             }
 
                             if (nw4.StartsWith("4") || nw4.StartsWith("5"))
                             {
-                                HasInternet.Source = new BitmapImage(new Uri(@$"/Assets/Images/Icon145{isDark}.png", UriKind.Relative));
-                                WeakInternet.Source = new BitmapImage(new Uri(@$"/Assets/Images/Icon127{isDark}.png", UriKind.Relative));
+                                HasInternet.Source = new BitmapImage(new Uri(@$"/Assets/Images/Networking/Icon145{isDark}.png", UriKind.Relative));
+                                WeakInternet.Source = new BitmapImage(new Uri(@$"/Assets/Images/Networking/Icon127{isDark}.png", UriKind.Relative));
                             }
 
                             if (nw4.StartsWith("2") || nw4.StartsWith("3"))
                             {
-                                HasInternet.Source = new BitmapImage(new Uri(@"/Assets/Images/Icon142.png", UriKind.Relative));
-                                WeakInternet.Source = new BitmapImage(new Uri(@"/Assets/Images/Icon124.png", UriKind.Relative));
+                                HasInternet.Source = new BitmapImage(new Uri(@"/Assets/Images/Networking/Icon142.png", UriKind.Relative));
+                                WeakInternet.Source = new BitmapImage(new Uri(@"/Assets/Images/Networking/Icon124.png", UriKind.Relative));
                             }
 
                             if (nw4.StartsWith("0") || nw4.StartsWith("1"))
                             {
-                                HasInternet.Source = new BitmapImage(new Uri(@"/Assets/Images/Icon139.png", UriKind.Relative));
-                                WeakInternet.Source = new BitmapImage(new Uri(@"/Assets/Images/Icon121.png", UriKind.Relative));
+                                HasInternet.Source = new BitmapImage(new Uri(@"/Assets/Images/Networking/Icon139.png", UriKind.Relative));
+                                WeakInternet.Source = new BitmapImage(new Uri(@"/Assets/Images/Networking/Icon121.png", UriKind.Relative));
                             }
                         }
 
@@ -346,7 +346,7 @@ namespace CharmsBarPort
 
                     var clocksContent = Clocks.Content.ToString();
 
-                    if (clocksContent.Length < 3 && !clocksContent.StartsWith("1"))
+                    if (clocksContent.Length <= 3 && !clocksContent.StartsWith("1"))
                     {
                         Clocks.Margin = new Thickness(94, 3, 0, -106);
                         ClockLines.Margin = new Thickness(138, -24.99, -190, -98);
@@ -502,37 +502,32 @@ namespace CharmsBarPort
                         string line;
                         int strength = 0;
                         string wifi;
+
                         while (!proc.StandardOutput.EndOfStream)
                         {
                             line = proc.StandardOutput.ReadLine();
 
                             if (line.Contains("Name"))
                             {
-                                string tmpx = line.Split(':')[1].Split("%")[0];
-                                isEthernet = tmpx.ToString();
+                                isEthernet = line.Split(':')[1].Split("%")[0];
                             }
 
                             if (line.Contains("There is"))
                             {
-                                string tmp = line;
-                                hasDrivers = tmp.Replace(" ", "");
+                                hasDrivers = line.Replace(" ", "");
                             }
 
                             if (line.Contains("Software"))
                             {
-                                string tmp2 = line;
-                                nw5 = tmp2.Replace(" ", "");
+                                nw5 = line.Replace(" ", "");
                             }
 
                             if (line.Contains("Signal"))
                             {
-                                string tmp3 = line.Split(':')[1].Split("%")[0];
-                                Int32.TryParse(tmp3, out strength);
+                                Int32.TryParse(line.Split(':')[1].Split("%")[0], out strength);
                                 nw4 = strength.ToString();
                                 CheckSignal.ReportProgress(strength);
                             }
-
-
                         }
                         proc.WaitForExit();
                     }
@@ -552,90 +547,50 @@ namespace CharmsBarPort
 
         private void CheckBatteryStatus()
         {
-            var pw = SystemInformation.PowerStatus.BatteryChargeStatus;
-            var pw2 = SystemInformation.PowerStatus.PowerLineStatus.ToString();
-            double pw3 = SystemInformation.PowerStatus.BatteryLifePercent;
-
-            // TODO: Fix the mess below
-
-            if (pw3 >= 0.96)
-            {
-                BatteryLife.Source = new BitmapImage(new Uri(@$"/Assets/Images/BatteryFull{isDark}.png", UriKind.Relative));
-            }
-
-            if (0.96 > pw3 && pw3 >= 0.86) // WHY NOT 0.9 <= pw3 < 0.96 MICROSOFT
-            {
-                BatteryLife.Source = new BitmapImage(new Uri(@$"/Assets/Images/Battery90{isDark}.png", UriKind.Relative));
-            }
-
-            if (pw3 >= 0.76 && pw3 < 0.86)
-            {
-                BatteryLife.Source = new BitmapImage(new Uri(@$"/Assets/Images/Battery80{isDark}.png", UriKind.Relative));
-            }
-
-            if (pw3 >= 0.66 && pw3 < 0.76)
-            {
-                BatteryLife.Source = new BitmapImage(new Uri(@$"/Assets/Images/Battery70{isDark}.png", UriKind.Relative));
-            }
-
-            if (pw3 >= 0.56 && pw3 < 0.66)
-            {
-                BatteryLife.Source = new BitmapImage(new Uri(@$"/Assets/Images/Battery60{isDark}.png", UriKind.Relative));
-            }
-
-            if (pw3 >= 0.46 && pw3 < 0.56)
-            {
-                BatteryLife.Source = new BitmapImage(new Uri(@$"/Assets/Images/Battery50{isDark}.png", UriKind.Relative));
-            }
-
-            if (pw3 >= 0.36 && pw3 < 0.46)
-            {
-                BatteryLife.Source = new BitmapImage(new Uri(@$"/Assets/Images/Battery40{isDark}.png", UriKind.Relative));
-            }
-
-            if (pw3 >= 0.26 && pw3 < 0.36)
-            {
-                BatteryLife.Source = new BitmapImage(new Uri(@$"/Assets/Images/Battery30{isDark}.png", UriKind.Relative));
-            }
-
-            if (pw3 >= 0.16 && pw3 < 0.26)
-            {
-                BatteryLife.Source = new BitmapImage(new Uri(@$"/Assets/Images/Battery20{isDark}.png", UriKind.Relative));
-            }
-
-            if (pw3 >= 0.06 && pw3 < 0.16)
-            {
-                BatteryLife.Source = new BitmapImage(new Uri(@$"/Assets/Images/Battery1{isDark}.png", UriKind.Relative));
-            }
-
-            if (pw3 > 0.1 && pw3 < 0.6)
-            {
-                BatteryLife.Source = new BitmapImage(new Uri(@$"/Assets/Images/Battery5{isDark}.png", UriKind.Relative));
-            }
-
-            if (pw3 <= 0.1)
-            {
-                BatteryLife.Source = new BitmapImage(new Uri(@$"/Assets/Images/Battery0{isDark}.png", UriKind.Relative));
-            }
-
-            if (pw != BatteryChargeStatus.NoSystemBattery)
-            {
-                if (pw2 == "Online")
+            void setBatteryIcon() {
+                // This syntax is available since C# 9
+                BatteryLife.Source = (double)SystemInformation.PowerStatus.BatteryLifePercent switch
                 {
+                    >= 0.96 => new BitmapImage(new Uri(@$"/Assets/Images/BatteryFull{isDark}.png", UriKind.Relative)),
+                    >= 0.86 and < 0.96 => new BitmapImage(new Uri(@$"/Assets/Images/Battery/Battery90{isDark}.png", UriKind.Relative)),
+                    >= 0.76 and < 0.86 => new BitmapImage(new Uri(@$"/Assets/Images/Battery/Battery80{isDark}.png", UriKind.Relative)),
+                    >= 0.66 and < 0.76 => new BitmapImage(new Uri(@$"/Assets/Images/Battery/Battery70{isDark}.png", UriKind.Relative)),
+                    >= 0.56 and < 0.66 => new BitmapImage(new Uri(@$"/Assets/Images/Battery/Battery60{isDark}.png", UriKind.Relative)),
+                    >= 0.46 and < 0.56 => new BitmapImage(new Uri(@$"/Assets/Images/Battery/Battery50{isDark}.png", UriKind.Relative)),
+                    >= 0.36 and < 0.46 => new BitmapImage(new Uri(@$"/Assets/Images/Battery/Battery40{isDark}.png", UriKind.Relative)),
+                    >= 0.26 and < 0.36 => new BitmapImage(new Uri(@$"/Assets/Images/Battery/Battery30{isDark}.png", UriKind.Relative)),
+                    >= 0.16 and < 0.26 => new BitmapImage(new Uri(@$"/Assets/Images/Battery/Battery20{isDark}.png", UriKind.Relative)),
+                    >= 0.06 and < 0.16 => new BitmapImage(new Uri(@$"/Assets/Images/Battery/Battery10{isDark}.png", UriKind.Relative)),
+                    >= 0.01 and < 0.06 => new BitmapImage(new Uri(@$"/Assets/Images/Battery/Battery5{isDark}.png", UriKind.Relative)),
+                    _ => new BitmapImage(new Uri(@$"/Assets/Images/Battery/Battery0{isDark}.png", UriKind.Relative))
+                };
+            };
+
+            switch (SystemInformation.PowerStatus.BatteryChargeStatus)
+            {
+                case BatteryChargeStatus.NoSystemBattery:
+                    BatteryLife.Visibility = Visibility.Hidden;
+                    IsCharging.Visibility = Visibility.Hidden;
+                    break;
+
+                case BatteryChargeStatus.Charging:
                     BatteryLife.Visibility = Visibility.Visible;
                     IsCharging.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    BatteryLife.Visibility = pw2 == "Offline" ? Visibility.Visible : Visibility.Hidden;
+                    setBatteryIcon();
+                    break;
+
+                case BatteryChargeStatus.Unknown:
+                    BatteryLife.Source = new BitmapImage(new Uri(@$"/Assets/Images/Battery0{isDark}.png", UriKind.Relative));
+                    BatteryLife.Visibility = Visibility.Visible;
                     IsCharging.Visibility = Visibility.Hidden;
-                }
-            }
-            else
-            {
-                BatteryLife.Visibility = Visibility.Hidden;
-                IsCharging.Visibility = Visibility.Hidden;
-            }
+                    break;
+
+                default:
+                    BatteryLife.Visibility = Visibility.Visible;
+                    IsCharging.Visibility = Visibility.Hidden;
+                    setBatteryIcon();
+                    break;
+            };
         }
     }
 

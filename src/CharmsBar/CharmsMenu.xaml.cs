@@ -43,17 +43,15 @@ namespace CharmsBarPort
         
         public CharmsMenu()
         {
-            var dispWidth = SystemParameters.PrimaryScreenWidth;
-            var dispHeight = SystemParameters.PrimaryScreenHeight;
             Topmost = true;
             ShowInTaskbar = false;
             WindowStyle = WindowStyle.None;
             ResizeMode = ResizeMode.NoResize;
-            var brush = (Brush)converter.ConvertFromString("#00111111");
-            Background = brush;
+            Background = (Brush)converter.ConvertFromString("#00111111");
             WindowStartupLocation = WindowStartupLocation.Manual;
             Left = 0;
-            Top = dispHeight - 200;
+            Top = SystemParameters.PrimaryScreenHeight - 200;
+
             System.Windows.Forms.Application.ThreadException += new ThreadExceptionEventHandler(CharmsMenu.Form1_UIThreadException);
             InitializeComponent();
             _initTimer();
@@ -64,7 +62,7 @@ namespace CharmsBarPort
 
         private void _initTimer()
         {
-            System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
+            t = new();
             t.Interval = 1;
             t.Tick += OnTimedEvent;
             t.Enabled = true;
@@ -75,16 +73,13 @@ namespace CharmsBarPort
         {
             dispatcher.BeginInvoke((Action)(() =>
             {
-                var dispWidth = SystemParameters.PrimaryScreenWidth;
-                var dispHeight = SystemParameters.PrimaryScreenHeight;
-
                 try
                 {
                     RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ImmersiveShell\\EdgeUi", false);
                     if (key != null)
                     {
                         // (Not in 8.1) Remove the clock
-                        string charmMenuUse = key.GetValue("EnableCharmsMenu", -1, RegistryValueOptions.None).ToString(); //this is not in Windows 8.1, but used to remove the Charms Clock
+                        string charmMenuUse = key.GetValue("EnableCharmsMenu", -1, RegistryValueOptions.None).ToString();
                         useMenu.Content = (charmMenuUse == "-1") ? "0" : charmMenuUse;
                         key.Close();
                     }
@@ -95,9 +90,9 @@ namespace CharmsBarPort
                     //react appropriately
                 }
 
-                if (charmsMenuOpen == true)
+                if (charmsMenuOpen)
                 {
-                    CharmsClock.Left = dispWidth - 527;
+                    CharmsClock.Left = SystemParameters.PrimaryScreenWidth - 527;
                 }
 
             }));
