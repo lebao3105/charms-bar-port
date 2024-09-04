@@ -34,5 +34,8 @@
     <Page Update="CharmsClock.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="CharmsMenu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 </Project>

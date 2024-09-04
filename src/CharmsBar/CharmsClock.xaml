@@ -16,6 +16,7 @@
         ShowInTaskbar="False"
         UseLayoutRounding="True"
         SnapsToDevicePixels="True"
+        Visibility="Hidden"
         Icon="/Icon.png">
     <Grid Name="CharmClock" Focusable="False" Margin="0,0,0,0">
         <Border Background="{x:Static SystemColors.WindowBrush}"
