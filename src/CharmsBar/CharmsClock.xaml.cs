@@ -164,7 +164,7 @@ namespace CharmsBarPort
                     // For 24 hours clock, use now.Hours.ToString() or HH format.
                     // TODO.
                     Clocks.Content = now.ToString("h ");
-                    Clocked.Content = now.Minute.ToString();
+                    Clocked.Content = now.ToString("mm");
 
                     if (!SystemParameters.HighContrast)
                     {
