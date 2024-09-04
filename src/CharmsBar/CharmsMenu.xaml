@@ -48,7 +48,7 @@
 
 
         <StackPanel Name="WinBG" Grid.Row="5" Background="#111111" Margin="0,0,0,0" VerticalAlignment="Bottom" UseLayoutRounding="True" SnapsToDevicePixels="True" Height="60">
-            <StackPanel Name="MetroColor" Background="{x:Static SystemParameters.WindowGlassBrush}" Margin="5,0,0,0" HorizontalAlignment="Left" SnapsToDevicePixels="True" Height="30" Width="39">
+            <StackPanel Name="MetroColor" Margin="5,0,0,0" HorizontalAlignment="Left" SnapsToDevicePixels="True" Height="30" Width="39">
                 <Image Name="WinCharm" HorizontalAlignment="Left" VerticalAlignment="Top" Height="45" Width="45" Margin="0,-3,0,0" Visibility="Visible" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
             </StackPanel>
         </StackPanel>

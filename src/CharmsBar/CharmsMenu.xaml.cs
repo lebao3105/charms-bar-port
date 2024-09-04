@@ -30,6 +30,7 @@ using System.Collections.ObjectModel;
 using static System.Resources.ResXFileRef;
 using System.Net.NetworkInformation;
 using System.Threading;
+using Windows.UI.ViewManagement;
 
 namespace CharmsBarPort
 {
@@ -54,6 +55,10 @@ namespace CharmsBarPort
 
             System.Windows.Forms.Application.ThreadException += new ThreadExceptionEventHandler(CharmsMenu.Form1_UIThreadException);
             InitializeComponent();
+
+            var accentColor = new UISettings().GetColorValue(UIColorType.Accent);
+            MetroColor.Background = new SolidColorBrush(Color.FromRgb(accentColor.R, accentColor.G, accentColor.B));
+
             _initTimer();
         }
 
