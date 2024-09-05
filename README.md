@@ -79,9 +79,7 @@ Matches the original isn't it:)?
 
 ## Download
 
-Downloads are coming soon in the near future.
-
-Currently go to Actions tab of the repository and get the latest successful (and unexpired) build.
+Go to Actions tab of the repository and get the latest successful (and unexpired) build.
 
 For the best experience use Release variant.
 
@@ -99,9 +97,11 @@ We have no responsibility for any damage you've done to your computer by messing
 * `DisableCharmsHint`: Do not peek the charm bar on mouse hover. A DWORD.
 * `AccentColor`: Accent color for... the start button. A hex string. Not yet implemented.
 * `Delay`: Delay (in milliseconds) for the charm bar to be show (both normal and peek)
-* `Use24HoursFormat`: Force 24 hours clock format
+* `Use24HoursFormat`: Force 24 hours clock format. A DWORD.
 
-Changes are immediately taken on open (no program/computer restart required).
+For options that only do true-false task (e.g `DisableCharmsHint`), they use DWORD type, setting to 1 will enable that option, 0 will do the opposite.
+
+Some changes are immediately taken, else require a program restart.
 
 ## Q&As
 Q: Why do you "revive" this failure?

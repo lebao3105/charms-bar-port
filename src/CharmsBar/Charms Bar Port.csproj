@@ -47,8 +47,8 @@
 		<None Remove="Assets\Images\Battery\Battery80Dark.png" />
 		<None Remove="Assets\Images\Battery\Battery90.png" />
 		<None Remove="Assets\Images\Battery\Battery90Dark.png" />
-		<None Remove="Assets\Images\Battery\BatteryFullCharging.png" />
-		<None Remove="Assets\Images\Battery\BatteryFullChargingDark.png" />
+		<None Remove="Assets\Images\Battery\BatteryCharge.png" />
+		<None Remove="Assets\Images\Battery\BatteryChargeDark.png" />
 		<None Remove="Assets\Images\Battery\BatteryFullDark.png" />
 		<None Remove="Assets\Images\Devices\DevicesDark.png" />
 		<None Remove="Assets\Images\Devices\DevicesInactive.png" />
@@ -173,7 +173,7 @@
 		<Resource Include="Assets\Images\Battery\Battery90Dark.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
-		<Resource Include="Assets\Images\Battery\BatteryFullChargingDark.png">
+		<Resource Include="Assets\Images\Battery\BatteryChargeDark.png">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
 		<Resource Include="Assets\Images\Battery\BatteryFullDark.png">
@@ -287,7 +287,7 @@
 		<Resource Include="Assets\Images\Battery\BatteryFull.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
-		<Resource Include="Assets\Images\Battery\BatteryFullCharging.png">
+		<Resource Include="Assets\Images\Battery\BatteryCharge.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
 		<Resource Include="Assets\Images\Devices\Devices.png">
