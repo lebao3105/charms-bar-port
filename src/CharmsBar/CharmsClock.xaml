@@ -3,9 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        Opacity="1.002"
         mc:Ignorable="d"
-        Title="Charms Bar Clock"
         AllowsTransparency="True"
         ResizeMode="NoResize"
         Topmost="True"
@@ -17,41 +15,45 @@
         UseLayoutRounding="True"
         SnapsToDevicePixels="True"
         Visibility="Hidden"
-        Icon="/Icon.png">
+        Left="51"
+        WindowStartupLocation="Manual"
+        Initialized="Window_Initialized">
+    
     <Grid Name="CharmClock" Focusable="False" Margin="0,0,0,0">
         <Border Background="{x:Static SystemColors.WindowBrush}"
-        Name="ClockBorder"
-        Panel.ZIndex="-1"
-        BorderBrush="{x:Static SystemColors.WindowTextBrush}" 
-        BorderThickness="2"
-        Width="Auto"
-        Height="139"
-        Margin="0,0,-10,0">
-        </Border>
-        
+                Name="ClockBorder"
+                Panel.ZIndex="-1"
+                BorderBrush="{x:Static SystemColors.WindowTextBrush}" 
+                BorderThickness="2"
+                Width="Auto"
+                Height="139"
+                Margin="0,0,-10,0"/>
+
         <StackPanel Grid.Row="0" Width="Auto">
 
-            <Image Name="NoInternetFound" HorizontalAlignment="Left" Width="25" Margin="37,3,0,-99" Visibility="Hidden"/>
+            <!--<Image Name="NoInternetFound" HorizontalAlignment="Left" Width="25" Margin="37,3,0,-99" Visibility="Hidden"/>
             <Image Name="NoInternet" HorizontalAlignment="Left" Width="25" Margin="37,3,0,-99" Visibility="Hidden"/>
             <Image Name="HasInternet" HorizontalAlignment="Left" Width="25" Margin="37,3,0,-99" Visibility="Hidden"/>
-            <Image Name="WeakInternet" HorizontalAlignment="Left" Width="25" Margin="37,3,0,-99" Visibility="Hidden"/>
-            <Image Name="NoDrivers" HorizontalAlignment="Left" Width="24" Margin="39,3,0,-99" Visibility="Visible"/>
+            <Image Name="WeakInternet" HorizontalAlignment="Left" Width="25" Margin="37,3,0,-99" Visibility="Hidden"/>-->
+            
+            <!--<Image Name="NoDrivers" HorizontalAlignment="Left" Width="24" Margin="39,3,0,-99" Visibility="Visible"/>
             <Image Name="Ethernet" HorizontalAlignment="Left" Width="24" Margin="39,3,0,-99" Visibility="Hidden"/>
-            <Image Name="Airplane" HorizontalAlignment="Left" Width="24" Margin="39,3,0,-99" Visibility="Hidden"/>
+            <Image Name="Airplane" HorizontalAlignment="Left" Width="24" Margin="39,3,0,-99" Visibility="Hidden"/>-->
+
+            <Image Name="InternetStrength" HorizontalAlignment="Left" Width="25" Margin="37, 3, 0, -99" Visibility="Visible"/>
+            <Image Name="InternetType" HorizontalAlignment="Left" Width="24" Margin="39, 3, 0, -99" Visibility="Visible"/>
 
             <Image Name="BatteryLife" HorizontalAlignment="Left" Width="24" Margin="39,9,0,-169" Visibility="Hidden"/>
             <Image Name="IsCharging" HorizontalAlignment="Left" Width="24" Margin="39,9,0,-169" Visibility="Hidden"/>
             
-            <Label Name="Clocks" Content="1" Foreground="{x:Static SystemColors.WindowTextBrush}" FontFamily="Segoe UI light" FontSize="85" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="95, 3, 0, -106"/>
-            <Label Name="Clocked" Content="00" Foreground="{x:Static SystemColors.WindowTextBrush}" FontFamily="Segoe UI light" FontSize="85" Margin="144, -17, -190, -198"/>
-            <Label Name="ClockLines" Content=":" Foreground="{x:Static SystemColors.WindowTextBrush}" FontFamily="Segoe UI Light" FontSize="84" Margin="125, -24.99, -190, -98"/>
+            <Label Name="Clock_Hour" Content="1" Foreground="{x:Static SystemColors.WindowTextBrush}" FontFamily="Segoe UI light" FontSize="85" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="95, 3, 0, -106"/>
+            <Label Name="Clock_Mins" Content="00" Foreground="{x:Static SystemColors.WindowTextBrush}" FontFamily="Segoe UI light" FontSize="85" Margin="144, -17, -190, -198"/>
+            <Label Name="Clock_Sepa" Content=":" Foreground="{x:Static SystemColors.WindowTextBrush}" FontFamily="Segoe UI Light" FontSize="84" Margin="125, -24.99, -190, -98"/>
 
-            <StackPanel Name="AutoResizer" Visibility="Hidden" Width="Auto" Margin="0, 0, 0, 0">
-            </StackPanel>
+            <StackPanel Name="AutoResizer" Visibility="Hidden" Width="Auto" Margin="0, 0, 0, 0"/>
 
             <Label Name="Week" Content="Friday      " Foreground="{x:Static SystemColors.WindowTextBrush}" FontFamily="Segoe UI Semilight" FontSize="32" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="255, 2, 0, -18"/>
             <Label Name="Date" Content="May 5" Foreground="{x:Static SystemColors.WindowTextBrush}" FontFamily="Segoe UI Semilight" FontSize="32" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="255, 3, 0, -24"/>
-            <Label Name="noClocks" Content="-1" Visibility="Hidden"/>
         </StackPanel>
     </Grid>
 </Window>
