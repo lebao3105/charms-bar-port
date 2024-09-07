@@ -617,7 +617,7 @@ namespace CharmsBarPort
 
         private async void Settings_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            WinPlusKey(Key.S);
+            WinPlusKey(Key.I);
             HideEverythingAndShowInactiveIcons();
         }
 
