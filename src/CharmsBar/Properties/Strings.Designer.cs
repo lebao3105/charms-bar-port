@@ -22,7 +22,7 @@ namespace Charms_Bar_Port.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Charms_Bar_Port.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Charms_Bar_Port.Properties.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace Charms_Bar_Port.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Charms_Bar_Port.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Devices.
         /// </summary>
-        internal static string Devices {
+        public static string Devices {
             get {
                 return ResourceManager.GetString("Devices", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Charms_Bar_Port.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
-        internal static string Search {
+        public static string Search {
             get {
                 return ResourceManager.GetString("Search", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Charms_Bar_Port.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
-        internal static string Settings {
+        public static string Settings {
             get {
                 return ResourceManager.GetString("Settings", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Charms_Bar_Port.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Share.
         /// </summary>
-        internal static string Share {
+        public static string Share {
             get {
                 return ResourceManager.GetString("Share", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Charms_Bar_Port.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Start.
         /// </summary>
-        internal static string Start {
+        public static string Start {
             get {
                 return ResourceManager.GetString("Start", resourceCulture);
             }

@@ -14,7 +14,6 @@
         ShowInTaskbar="False"
         UseLayoutRounding="True"
         SnapsToDevicePixels="True"
-        Visibility="Hidden"
         Left="51"
         WindowStartupLocation="Manual"
         Initialized="Window_Initialized">

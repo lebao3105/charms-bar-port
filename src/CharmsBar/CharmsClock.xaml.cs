@@ -1,9 +1,20 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Data;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 using System.Threading.Tasks;
+using System.Reflection.Emit;
+using System.Runtime.InteropServices;
+using System.Collections.ObjectModel;
+using System.Net.NetworkInformation;
+using System.Threading;
+using System.Configuration;
+using static System.Resources.ResXFileRef;
+
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,28 +22,14 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Runtime.InteropServices;
-using System.Reflection.Emit;
-using System.ComponentModel;
-using System.Threading.Tasks;
-using Windows.Networking.Connectivity;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using System.Windows.Forms;
-using System.Reflection;
+
 using Microsoft.Win32;
-using System.Collections.ObjectModel;
-using static System.Resources.ResXFileRef;
-using System.Net.NetworkInformation;
-using System.Threading;
-using System.Configuration;
-using System.Security.Cryptography.Pkcs;
-using Microsoft.VisualBasic.Devices;
+using Windows.Networking.Connectivity;
 
 namespace CharmsBarPort
 {
@@ -41,6 +38,7 @@ namespace CharmsBarPort
         private BrushConverter converter = new();
         private string colorScheme = "";
 
+        #region Images
         private BitmapImage NoDriversImg
         {
             get => new BitmapImage(new Uri(@$"/Assets/Images/Networking/Icon103{colorScheme}.png", UriKind.Relative));
@@ -80,6 +78,7 @@ namespace CharmsBarPort
         {
             get => new BitmapImage(new Uri($@"/Assets/Images/Networking/Icon133{colorScheme}.png", UriKind.Relative));
         }
+        #endregion
 
         private System.Windows.Forms.Timer t = new()
         {

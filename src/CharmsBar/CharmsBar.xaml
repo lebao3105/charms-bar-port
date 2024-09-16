@@ -4,10 +4,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:lc="clr-namespace:Charms_Bar_Port.Properties"
     xmlns:local="clr-namespace:CharmsBarPort"
     mc:Ignorable="d"
+    
 	Name="Charms"
-    Title="Charms Bar"
     Top="0"
     WindowStyle="None"
     UseLayoutRounding="True"
@@ -18,15 +19,12 @@
     ShowInTaskbar="False"
     ResizeMode="NoResize"
     Icon="/Icon.png"
-    ScrollViewer.VerticalScrollBarVisibility="Disabled">
+    
+    UIElement.TouchLeave="Charms_MouseLeave"
+    UIElement.MouseLeave="Charms_MouseLeave">
 
-	<Grid Width="98" Height="Auto" Background="#00111111" 
-          UIElement.TouchUp="Charms_MouseUp" UIElement.TouchDown="Charms_MouseDown"
-          UIElement.TouchMove="Charms_MouseMove" UIElement.TouchLeave="Charms_MouseLeave"
-          UIElement.TouchEnter="Charms_MouseEnter" UIElement.MouseUp="Charms_MouseUp"
-          UIElement.MouseDown="Charms_MouseDown" UIElement.MouseMove="Charms_MouseMove"
-          UIElement.MouseLeave="Charms_MouseLeave" UIElement.MouseEnter="Charms_MouseEnter"
-          UseLayoutRounding="True" SnapsToDevicePixels="True" Grid.ZIndex="999999922">
+	<Grid Width="98" Height="Auto" Background="#00111111"
+          UseLayoutRounding="True" SnapsToDevicePixels="True">
         
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -46,88 +44,20 @@
             <RowDefinition Name="TechnicalPreview" Height="75"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
+
+        <local:BarButton ImagePath="/Assets/Images/Search/Search.png" CallBack="Search_Down"
+                         x:Name="SearchBtn" Label="{x:Static lc:Strings.Search}" Grid.Row="3"/>
         
-        <StackPanel Name="CharmBorder" Background="{x:Static SystemColors.WindowTextBrush}" Margin="-96,0,0,-999911" Width="2" Visibility="Visible" Panel.ZIndex="1" UseLayoutRounding="True" SnapsToDevicePixels="True">
-			<Label Name="noClocks" Content="0" Foreground="Transparent" Visibility="Hidden"></Label>
-			<Label Name="noMenu" Content="0" Foreground="Transparent" Visibility="Hidden"></Label>
-		    <Label Name="noFades" Content="0" Foreground="Transparent" Visibility="Hidden"></Label>
-			<Label Name="CharmsHover" Content="False" Foreground="Transparent"></Label>
-        </StackPanel>
+        <local:BarButton ImagePath="/Assets/Images/Share/Share.png" CallBack="Share_Down"
+                         x:Name="ShareBtn" Label="{x:Static lc:Strings.Share}" Grid.Row="4"/>
+        
+        <local:BarButton ImagePath="/Assets/Images/Start/Windows8.png" CallBack="Start_Down"
+                         x:Name="StartBtn" Label="{x:Static lc:Strings.Start}" Grid.Row="5"/>
 
-		<StackPanel Name="CharmBG" Background="#111111" Margin="0,0,0,-999911" Opacity="0.001" Visibility="Hidden" Panel.ZIndex="-2" UseLayoutRounding="True" SnapsToDevicePixels="True"
-                    UIElement.TouchUp="Charms_MouseUp" UIElement.TouchDown="Charms_MouseDown" UIElement.TouchMove="Charms_MouseMove" UIElement.TouchLeave="Charms_MouseLeave" UIElement.TouchEnter="Charms_MouseEnter"
-                    UIElement.MouseUp="Charms_MouseUp" UIElement.MouseDown="Charms_MouseDown" UIElement.MouseMove="Charms_MouseMove" UIElement.MouseLeave="Charms_MouseLeave" UIElement.MouseEnter="Charms_MouseEnter">
-			<Label Name="useMenu" Content="-1" Foreground="{x:Static SystemColors.WindowTextBrush}" Visibility="Hidden"/>
-		</StackPanel>
+        <local:BarButton ImagePath="/Assets/Images/Devices/Devices.png" CallBack="Devices_Down"
+                         x:Name="DevicesBtn" Label="{x:Static lc:Strings.Devices}" Grid.Row="6"/>
 
-        <StackPanel Name="SearchHover" Grid.Row="3"/>
-
-        <StackPanel Name="ShareHover" Grid.Row="4"/>
-
-        <StackPanel Name="WinHover" Grid.Row="5"/>
-
-        <StackPanel Name="DevicesHover" Grid.Row="6"/>
-
-        <StackPanel Name="SettingsHover" Grid.Row="7"/>
-
-        <StackPanel Name="SearchDown" Grid.Row="3" Margin="0,-25,0,0"/>
-
-        <StackPanel Name="ShareDown" Grid.Row="4" Margin="0,0,0,-25"/>
-
-        <StackPanel Name="WinDown" Grid.Row="5" Margin="0,25,0,-50"/>
-
-        <StackPanel Name="DevicesDown" Grid.Row="6" Margin="0,50,0,-75"/>
-
-        <StackPanel Name="SettingsDown" Grid.Row="7" Margin="0,75,0,-100"/>
-
-        <StackPanel Name="SearchBG" Background="#00ffffff" UIElement.MouseLeave="Search_MouseLeave"
-                    UIElement.MouseEnter="Search_MouseEnter" UIElement.PreviewMouseLeftButtonUp="Search_MouseUp"
-                    UIElement.PreviewMouseLeftButtonDown="Search_MouseDown" Grid.Row="3" Width="98" UseLayoutRounding="True" SnapsToDevicePixels="True">
-            <Image Name="SearchCharm" Source="/Assets/Images/Search/Search.png" HorizontalAlignment="Center" VerticalAlignment="Top" Height="48" Width="51" Margin="0,-11,12,-66" Visibility="Hidden" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
-            <Image Name="SearchCharmInactive" Source="/Assets/Images/Search/SearchInactive.png" HorizontalAlignment="Center" VerticalAlignment="Top" Height="48.3" Width="51" Margin="0,-11,12,-66"  Visibility="Hidden" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
-            <Label Name="SearchText" Content="Search" Foreground="#A0A0A0" FontFamily="Segoe UI" FontSize="15.04" HorizontalAlignment="Stretch" VerticalAlignment="Center" Padding="19.90,1,0,1" Margin="1,38,13.141,-44.89" Visibility="Hidden" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
-		</StackPanel>
-
-        <StackPanel Name="ShareBG" Height="100" Background="#00ffffff" UIElement.MouseLeave="Share_MouseLeave" UIElement.MouseEnter="Share_MouseEnter" UIElement.PreviewMouseLeftButtonUp="Share_MouseUp" UIElement.PreviewMouseLeftButtonDown="Share_MouseDown" Margin="0,0,0,-25" Grid.Row="4" Width="98" UseLayoutRounding="True" SnapsToDevicePixels="True">
-            <Image Name="ShareCharm" Source="/Assets/Images/Share/Share.png" HorizontalAlignment="Center" VerticalAlignment="Top" Stretch="Fill" Height="47.5" Width="47.2" Margin="0,14,12,-96" Visibility="Hidden"/>
-            <Image Name="ShareCharmInactive" Source="/Assets/Images/Share/ShareInactive.png" HorizontalAlignment="Center" VerticalAlignment="Top" Stretch="Fill" Height="47.5" Width="47.2" Margin="0,14,12,-66" Visibility="Hidden"/>
-            <Label Name="ShareText" Content="Share" Foreground="#A0A0A0" FontFamily="Segoe UI" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,59,12,0" Visibility="Hidden" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
-        </StackPanel>
-
-        <StackPanel Name="WinBG" Height="100" Background="#00ffffff" UIElement.MouseLeave="Win_MouseLeave" UIElement.MouseEnter="Win_MouseEnter" UIElement.PreviewMouseLeftButtonUp="Win_MouseUp" UIElement.PreviewMouseLeftButtonDown="Win_MouseDown" Margin="0,-49,0,24" Grid.Row="6" Width="98" UseLayoutRounding="True" SnapsToDevicePixels="True">
-            <Grid Name="MetroColor" Background="{x:Static SystemParameters.WindowGlassBrush}" VerticalAlignment="Top" Width="70" Height="54" Margin="0,11,12,4" Opacity="0.0" Visibility="Hidden" UseLayoutRounding="True" SnapsToDevicePixels="True">
-                <Image Name="WinFader" Source="/Assets/Images/Faders/fader.png" VerticalAlignment="Center" Height="139" Width="287" Margin="0,0,0,0" Visibility="Visible"/>
-                <StackPanel Name="FadeBlocker" Background="#111111" Margin="-80,0,0,0" Width="10" Opacity="0.0" Grid.Row="6">
-                </StackPanel>
-                <Image Name="WinCharm" Source="/Assets/Images/Start/Windows8.png" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Height="82" Width="80.31" Opacity="0.0" Margin="0,0,0,0" Visibility="Hidden" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
-                <Label Name="vn" Content="0" Foreground="Transparent" Visibility="Hidden"></Label>
-                <Label Name="vn2" Content="0" Foreground="Transparent" Visibility="Hidden"></Label>
-                <Label Name="vn3" Content="0" Foreground="Transparent" Visibility="Hidden"></Label>
-                <Label Name="vn4" Content="0" Foreground="Transparent" Visibility="Hidden"></Label>
-                <Label Name="vn5" Content="0" Foreground="Transparent" Visibility="Hidden"></Label>
-                <Label Name="vn6" Content="0" Foreground="Transparent" Visibility="Hidden"></Label>
-                <Label Name="vn7" Content="0" Foreground="Transparent" Visibility="Hidden"></Label>
-
-				<Label Name="ActiveWindow" Content="0" Foreground="Transparent" Visibility="Hidden"></Label>
-				<Label Name="ActiveCharm" Content="0" Foreground="Transparent" Visibility="Hidden"></Label>
-            </Grid>
-
-            <Grid Name="NoColor" Background="#00000000" VerticalAlignment="Top" Width="50" Height="50" Margin="0,-50,12,4" Visibility="Visible">
-                <Image Name="WinCharmInactive" Source="/Assets/Images/Start/Windows8Inactive.png" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Height="83" Width="84" Margin="2,-12,0,0" Visibility="Hidden" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
-            </Grid>
-            <Label Name="WinText" Content="Start" Foreground="#A0A0A0" FontFamily="Segoe UI" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,-19,12,0" Visibility="Hidden" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
-        </StackPanel>
-
-        <StackPanel Name="DevicesBG" Height="100" Background="#00ffffff" UIElement.MouseLeave="Devices_MouseLeave" UIElement.MouseEnter="Devices_MouseEnter" UIElement.PreviewMouseLeftButtonUp="Devices_MouseUp" UIElement.PreviewMouseLeftButtonDown="Devices_MouseDown" Margin="0,-24,0,0" Grid.Row="7" Width="98" UseLayoutRounding="True" SnapsToDevicePixels="True">
-            <Image Name="DevicesCharm" Source="/Assets/Images/Devices/Devices.png" HorizontalAlignment="Center" VerticalAlignment="Top" Height="48" Width="48" Margin="0,13,12,-10" Visibility="Hidden" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
-            <Image Name="DevicesCharmInactive" Source="/Assets/Images/Devices/DevicesInactive.png" HorizontalAlignment="Center" VerticalAlignment="Top" Height="48" Width="48" Margin="0,-38,12,-99" Visibility="Hidden" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
-            <Label Name="DevicesText" Content="Devices" Foreground="#A0A0A0" FontFamily="Segoe UI" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,7,12,0" Visibility="Hidden" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
-		</StackPanel>
-
-        <StackPanel Name="SettingsBG" Background="#00ffffff" UIElement.MouseLeave="Settings_MouseLeave" UIElement.MouseEnter="Settings_MouseEnter" UIElement.PreviewMouseLeftButtonUp="Settings_MouseUp" UIElement.PreviewMouseLeftButtonDown="Settings_MouseDown" Grid.Row="8" Width="98" UseLayoutRounding="True" SnapsToDevicePixels="True">
-            <Image Name="SettingsCharm" Source="/Assets/Images/Settings/Settings.png" HorizontalAlignment="Center" VerticalAlignment="Top" Height="48" Width="48" Margin="0,14,12,-99" Visibility="Hidden" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
-            <Image Name="SettingsCharmInactive" Source="/Assets/Images/Settings/SettingsInactive.png" HorizontalAlignment="Center" VerticalAlignment="Top" Height="48" Width="48" Margin="0,14,12,-99" Visibility="Hidden" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
-            <Label Name="SettingsText" Content="Settings" Foreground="#A0A0A0" FontFamily="Segoe UI Emoji" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,59,12,-63" Visibility="Hidden" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
-        </StackPanel>
+        <local:BarButton ImagePath="/Assets/Images/Settings/Settings.png" CallBack="Settings_Down"
+                         x:Name="SettingsBtn" Label="{x:Static lc:Strings.Settings}" Grid.Row="7"/>
     </Grid>
 </Window>
