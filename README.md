@@ -8,11 +8,11 @@
 "Your most unhappy customers are your greatest source of learning."<br />— Bill Gates
 </blockquote>
 
-[![GitHub release](https://img.shields.io/github/release/Icepenguins101/charms-bar-port/all.svg)](https://github.com/Icepenguins101/charms-bar-port/releases)
-[![GitHub all releases](https://img.shields.io/github/downloads/Icepenguins101/charms-bar-port/total.svg)](https://github.com/Icepenguins101/charms-bar-port/releases)
-[![GitHub stars](https://img.shields.io/github/stars/Icepenguins101/charms-bar-port.svg)](https://github.com/Icepenguins101/charms-bar-port/stargazers)
-[![Documentation](https://img.shields.io/badge/Docs-WIP-red.svg)](https://github.com/Icepenguins101/charms-bar-port/wiki)
-[![Issues](https://img.shields.io/github/issues/Icepenguins101/charms-bar-port.svg)](https://github.com/Icepenguins101/charms-bar-port/issues)
+[![GitHub release](https://img.shields.io/github/release/lebao3105/charms-bar-port/all.svg)](https://github.com/lebao3105/charms-bar-port/releases)
+[![GitHub all releases](https://img.shields.io/github/downloads/lebao3105/charms-bar-port/total.svg)](https://github.com/lebao3105/charms-bar-port/releases)
+[![GitHub stars](https://img.shields.io/github/stars/lebao3105/charms-bar-port.svg)](https://github.com/lebao3105/charms-bar-port/stargazers)
+[![Documentation](https://img.shields.io/badge/Docs-WIP-red.svg)](https://github.com/lebao3105/charms-bar-port/wiki)
+[![Issues](https://img.shields.io/github/issues/lebao3105/charms-bar-port.svg)](https://github.com/lebao3105/charms-bar-port/issues)
 
 ## Contents
 - [About](#about)
